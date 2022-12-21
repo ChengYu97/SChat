@@ -1,0 +1,9 @@
+syntax = "proto3";
+package chengyu97.schat.schat;
+
+option go_package = "github.com/ChengYu97/SChat/x/schat/types";
+
+message SystemInfo {
+  uint64 conversationCount = 1; 
+  
+}

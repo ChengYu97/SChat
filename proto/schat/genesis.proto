@@ -3,6 +3,7 @@ package chengyu97.schat.schat;
 
 import "gogoproto/gogo.proto";
 import "schat/params.proto";
+import "schat/system_info.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/ChengYu97/SChat/x/schat/types";
@@ -10,5 +11,6 @@ option go_package = "github.com/ChengYu97/SChat/x/schat/types";
 // GenesisState defines the schat module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  SystemInfo systemInfo = 2 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

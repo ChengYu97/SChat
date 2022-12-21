@@ -25,12 +25,21 @@ export interface RpcStatus {
  */
 export type SchatParams = object;
 
+export interface SchatQueryGetSystemInfoResponse {
+  SystemInfo?: SchatSystemInfo;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface SchatQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: SchatParams;
+}
+
+export interface SchatSystemInfo {
+  /** @format uint64 */
+  conversationCount?: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -240,6 +249,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<SchatQueryParamsResponse, RpcStatus>({
       path: `/ChengYu97/SChat/schat/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QuerySystemInfo
+   * @summary Queries a SystemInfo by index.
+   * @request GET:/ChengYu97/SChat/schat/system_info
+   */
+  querySystemInfo = (params: RequestParams = {}) =>
+    this.request<SchatQueryGetSystemInfoResponse, RpcStatus>({
+      path: `/ChengYu97/SChat/schat/system_info`,
       method: "GET",
       format: "json",
       ...params,

@@ -19,9 +19,12 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
+				SystemInfo: &types.SystemInfo{
+					ConversationCount: 27,
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
