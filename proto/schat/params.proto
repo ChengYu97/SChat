@@ -1,0 +1,12 @@
+syntax = "proto3";
+package chengyu97.schat.schat;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/ChengYu97/SChat/x/schat/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
