@@ -25,6 +25,14 @@ func TestGenesis(t *testing.T) {
 				Address: "1",
 			},
 		},
+		StoredConversationList: []types.StoredConversation{
+			{
+				HashParticipant: "0",
+			},
+			{
+				HashParticipant: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -38,5 +46,6 @@ func TestGenesis(t *testing.T) {
 
 	require.Equal(t, genesisState.SystemInfo, got.SystemInfo)
 	require.ElementsMatch(t, genesisState.EncryptKeyList, got.EncryptKeyList)
+	require.ElementsMatch(t, genesisState.StoredConversationList, got.StoredConversationList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

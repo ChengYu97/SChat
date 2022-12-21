@@ -377,6 +377,190 @@ func (m *QueryAllEncryptKeyResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetStoredConversationRequest struct {
+	HashParticipant string `protobuf:"bytes,1,opt,name=hashParticipant,proto3" json:"hashParticipant,omitempty"`
+}
+
+func (m *QueryGetStoredConversationRequest) Reset()         { *m = QueryGetStoredConversationRequest{} }
+func (m *QueryGetStoredConversationRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetStoredConversationRequest) ProtoMessage()    {}
+func (*QueryGetStoredConversationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5532c8f39fe35786, []int{8}
+}
+func (m *QueryGetStoredConversationRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetStoredConversationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetStoredConversationRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetStoredConversationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetStoredConversationRequest.Merge(m, src)
+}
+func (m *QueryGetStoredConversationRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetStoredConversationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetStoredConversationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetStoredConversationRequest proto.InternalMessageInfo
+
+func (m *QueryGetStoredConversationRequest) GetHashParticipant() string {
+	if m != nil {
+		return m.HashParticipant
+	}
+	return ""
+}
+
+type QueryGetStoredConversationResponse struct {
+	StoredConversation StoredConversation `protobuf:"bytes,1,opt,name=storedConversation,proto3" json:"storedConversation"`
+}
+
+func (m *QueryGetStoredConversationResponse) Reset()         { *m = QueryGetStoredConversationResponse{} }
+func (m *QueryGetStoredConversationResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetStoredConversationResponse) ProtoMessage()    {}
+func (*QueryGetStoredConversationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5532c8f39fe35786, []int{9}
+}
+func (m *QueryGetStoredConversationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetStoredConversationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetStoredConversationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetStoredConversationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetStoredConversationResponse.Merge(m, src)
+}
+func (m *QueryGetStoredConversationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetStoredConversationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetStoredConversationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetStoredConversationResponse proto.InternalMessageInfo
+
+func (m *QueryGetStoredConversationResponse) GetStoredConversation() StoredConversation {
+	if m != nil {
+		return m.StoredConversation
+	}
+	return StoredConversation{}
+}
+
+type QueryAllStoredConversationRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllStoredConversationRequest) Reset()         { *m = QueryAllStoredConversationRequest{} }
+func (m *QueryAllStoredConversationRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllStoredConversationRequest) ProtoMessage()    {}
+func (*QueryAllStoredConversationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5532c8f39fe35786, []int{10}
+}
+func (m *QueryAllStoredConversationRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllStoredConversationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllStoredConversationRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllStoredConversationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllStoredConversationRequest.Merge(m, src)
+}
+func (m *QueryAllStoredConversationRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllStoredConversationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllStoredConversationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllStoredConversationRequest proto.InternalMessageInfo
+
+func (m *QueryAllStoredConversationRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllStoredConversationResponse struct {
+	StoredConversation []StoredConversation `protobuf:"bytes,1,rep,name=storedConversation,proto3" json:"storedConversation"`
+	Pagination         *query.PageResponse  `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllStoredConversationResponse) Reset()         { *m = QueryAllStoredConversationResponse{} }
+func (m *QueryAllStoredConversationResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllStoredConversationResponse) ProtoMessage()    {}
+func (*QueryAllStoredConversationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5532c8f39fe35786, []int{11}
+}
+func (m *QueryAllStoredConversationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllStoredConversationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllStoredConversationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllStoredConversationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllStoredConversationResponse.Merge(m, src)
+}
+func (m *QueryAllStoredConversationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllStoredConversationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllStoredConversationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllStoredConversationResponse proto.InternalMessageInfo
+
+func (m *QueryAllStoredConversationResponse) GetStoredConversation() []StoredConversation {
+	if m != nil {
+		return m.StoredConversation
+	}
+	return nil
+}
+
+func (m *QueryAllStoredConversationResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "chengyu97.schat.schat.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "chengyu97.schat.schat.QueryParamsResponse")
@@ -386,48 +570,63 @@ func init() {
 	proto.RegisterType((*QueryGetEncryptKeyResponse)(nil), "chengyu97.schat.schat.QueryGetEncryptKeyResponse")
 	proto.RegisterType((*QueryAllEncryptKeyRequest)(nil), "chengyu97.schat.schat.QueryAllEncryptKeyRequest")
 	proto.RegisterType((*QueryAllEncryptKeyResponse)(nil), "chengyu97.schat.schat.QueryAllEncryptKeyResponse")
+	proto.RegisterType((*QueryGetStoredConversationRequest)(nil), "chengyu97.schat.schat.QueryGetStoredConversationRequest")
+	proto.RegisterType((*QueryGetStoredConversationResponse)(nil), "chengyu97.schat.schat.QueryGetStoredConversationResponse")
+	proto.RegisterType((*QueryAllStoredConversationRequest)(nil), "chengyu97.schat.schat.QueryAllStoredConversationRequest")
+	proto.RegisterType((*QueryAllStoredConversationResponse)(nil), "chengyu97.schat.schat.QueryAllStoredConversationResponse")
 }
 
 func init() { proto.RegisterFile("schat/query.proto", fileDescriptor_5532c8f39fe35786) }
 
 var fileDescriptor_5532c8f39fe35786 = []byte{
-	// 573 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x94, 0x4f, 0x6f, 0xd3, 0x30,
-	0x18, 0xc6, 0xeb, 0x31, 0x86, 0x30, 0xe2, 0x80, 0x19, 0x62, 0x14, 0x96, 0x41, 0xc4, 0x9f, 0x51,
-	0x21, 0x9b, 0x0e, 0xd0, 0x34, 0x71, 0x5a, 0x27, 0x98, 0x10, 0x97, 0xd1, 0x9d, 0xe0, 0x32, 0xb9,
-	0x99, 0x97, 0x56, 0xa4, 0x71, 0x16, 0x3b, 0x88, 0x08, 0x71, 0xe1, 0xc0, 0x19, 0x89, 0x33, 0x12,
-	0x37, 0x6e, 0x7c, 0x8e, 0x1d, 0x27, 0x71, 0xe1, 0x84, 0x50, 0xcb, 0xd7, 0x40, 0x42, 0xb1, 0x5d,
-	0xe2, 0x91, 0xa4, 0x01, 0x2e, 0x55, 0x6b, 0xbf, 0xcf, 0xfb, 0xfc, 0xde, 0xf4, 0x79, 0x03, 0xcf,
-	0x08, 0xaf, 0x4f, 0x25, 0xd9, 0x4f, 0x58, 0x9c, 0xe2, 0x28, 0xe6, 0x92, 0xa3, 0x73, 0x5e, 0x9f,
-	0x85, 0x7e, 0x9a, 0xac, 0xad, 0x62, 0x75, 0xa9, 0x3f, 0x9b, 0xf3, 0x3e, 0xf7, 0xb9, 0xaa, 0x20,
-	0xd9, 0x37, 0x5d, 0xdc, 0xbc, 0xe4, 0x73, 0xee, 0x07, 0x8c, 0xd0, 0x68, 0x40, 0x68, 0x18, 0x72,
-	0x49, 0xe5, 0x80, 0x87, 0xc2, 0xdc, 0xb6, 0x3c, 0x2e, 0x86, 0x5c, 0x90, 0x1e, 0x15, 0x4c, 0x7b,
-	0x90, 0x17, 0xed, 0x1e, 0x93, 0xb4, 0x4d, 0x22, 0xea, 0x0f, 0x42, 0x55, 0x6c, 0x6a, 0x91, 0x26,
-	0x89, 0x68, 0x4c, 0x87, 0x13, 0xfd, 0x79, 0x7d, 0x26, 0x52, 0x21, 0xd9, 0x70, 0x67, 0x10, 0xee,
-	0xf1, 0xa3, 0x17, 0x2c, 0xf4, 0xe2, 0x34, 0x92, 0x3b, 0xcf, 0x99, 0x81, 0x77, 0xe7, 0x21, 0x7a,
-	0x92, 0xf9, 0x6c, 0xa9, 0x36, 0x5d, 0xb6, 0x9f, 0x30, 0x21, 0xdd, 0x2e, 0x3c, 0x7b, 0xe4, 0x54,
-	0x44, 0x3c, 0x14, 0x0c, 0xdd, 0x87, 0x73, 0xda, 0x6e, 0x01, 0x5c, 0x06, 0xcb, 0xa7, 0x56, 0x16,
-	0x71, 0xe9, 0xe8, 0x58, 0xcb, 0x3a, 0xb3, 0x07, 0xdf, 0x96, 0x1a, 0x5d, 0x23, 0x71, 0x2f, 0xc2,
-	0x0b, 0xaa, 0xe7, 0x26, 0x93, 0xdb, 0x8a, 0xef, 0x51, 0xb8, 0xc7, 0x27, 0x86, 0x0c, 0x36, 0xcb,
-	0x2e, 0x8d, 0xef, 0x26, 0x84, 0xf9, 0xa9, 0xf1, 0xbe, 0x52, 0xe1, 0x9d, 0x17, 0x1a, 0x7f, 0x4b,
-	0xea, 0xde, 0xcb, 0x19, 0x1e, 0xe8, 0x47, 0xf1, 0x98, 0xa5, 0x86, 0x01, 0x2d, 0xc0, 0x13, 0x74,
-	0x77, 0x37, 0x66, 0x42, 0x8f, 0x77, 0xb2, 0x3b, 0xf9, 0x69, 0xd3, 0xd9, 0xb2, 0x9c, 0x8e, 0xfd,
-	0x3e, 0xad, 0xa1, 0xcb, 0xe5, 0x13, 0xba, 0x5c, 0xea, 0x7a, 0x86, 0x6e, 0x3d, 0x08, 0x8a, 0x74,
-	0x0f, 0x21, 0xcc, 0x23, 0x60, 0x5c, 0xae, 0x63, 0x9d, 0x17, 0x9c, 0xe5, 0x05, 0xeb, 0x4c, 0x9a,
-	0xbc, 0xe0, 0x2d, 0xea, 0x33, 0xa3, 0xed, 0x5a, 0x4a, 0xf7, 0x33, 0x30, 0xc3, 0xfc, 0xe1, 0x52,
-	0x31, 0xcc, 0xb1, 0xff, 0x1c, 0x26, 0x6b, 0x64, 0xf1, 0xce, 0x28, 0xde, 0x1b, 0xb5, 0xbc, 0x9a,
-	0xc2, 0x06, 0x5e, 0xf9, 0x39, 0x0b, 0x8f, 0x2b, 0x60, 0xf4, 0x16, 0xc0, 0x39, 0x1d, 0x2d, 0x74,
-	0xb3, 0x02, 0xa9, 0x98, 0xe5, 0x66, 0xeb, 0x6f, 0x4a, 0xb5, 0xaf, 0x7b, 0xed, 0xcd, 0x97, 0x1f,
-	0xef, 0x67, 0x96, 0xd0, 0x22, 0xd9, 0xc8, 0x34, 0x4f, 0x93, 0xb5, 0x55, 0xb2, 0xbd, 0xa1, 0x56,
-	0xca, 0x5a, 0x36, 0xf4, 0x01, 0xd8, 0x81, 0x44, 0xb7, 0xa7, 0x39, 0x94, 0xc5, 0xbd, 0xd9, 0xfe,
-	0x07, 0x85, 0x41, 0x6b, 0x29, 0xb4, 0xab, 0xc8, 0xad, 0x40, 0xb3, 0x76, 0x1e, 0x7d, 0x02, 0x10,
-	0xe6, 0x7f, 0x4e, 0x2d, 0x5f, 0x21, 0x6c, 0xb5, 0x7c, 0xc5, 0xe0, 0xb8, 0x77, 0x15, 0x1f, 0x46,
-	0xb7, 0x2a, 0xf8, 0xac, 0x57, 0x0f, 0x79, 0x65, 0x16, 0xeb, 0x35, 0xfa, 0x08, 0xe0, 0xe9, 0xbc,
-	0xd9, 0x7a, 0x10, 0x4c, 0x87, 0x2d, 0xdb, 0x8c, 0xe9, 0xb0, 0xa5, 0x29, 0xaf, 0x7d, 0x98, 0x16,
-	0x6c, 0xa7, 0x73, 0x30, 0x72, 0xc0, 0xe1, 0xc8, 0x01, 0xdf, 0x47, 0x0e, 0x78, 0x37, 0x76, 0x1a,
-	0x87, 0x63, 0xa7, 0xf1, 0x75, 0xec, 0x34, 0x9e, 0x2d, 0xfb, 0x03, 0xd9, 0x4f, 0x7a, 0xd8, 0xe3,
-	0xc3, 0x42, 0x9f, 0x97, 0xa6, 0x93, 0x4c, 0x23, 0x26, 0x7a, 0x73, 0xea, 0x65, 0x7b, 0xe7, 0x57,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0x62, 0xdb, 0xb5, 0x7e, 0x3e, 0x06, 0x00, 0x00,
+	// 739 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xcf, 0x4f, 0xd4, 0x4e,
+	0x18, 0xc6, 0x77, 0xe0, 0xfb, 0x45, 0x1d, 0x63, 0x8c, 0x23, 0x44, 0xac, 0xb2, 0xc8, 0xc4, 0x1f,
+	0xb8, 0x21, 0xad, 0xa0, 0x06, 0x88, 0xc6, 0x04, 0x50, 0x89, 0x31, 0x26, 0xb8, 0x9c, 0xf4, 0xb2,
+	0x99, 0x2d, 0x43, 0xb7, 0xa1, 0xdb, 0x29, 0x9d, 0x59, 0xe2, 0x86, 0x70, 0x31, 0xd1, 0xb3, 0xd1,
+	0xb3, 0x89, 0x37, 0x6f, 0xfe, 0x0d, 0x1e, 0x39, 0x29, 0x89, 0x17, 0x4f, 0xc6, 0x80, 0x7f, 0x88,
+	0xd9, 0x99, 0x59, 0x3a, 0xd0, 0xed, 0x16, 0xc9, 0x5e, 0x08, 0xcc, 0xcc, 0x33, 0xcf, 0xe7, 0x79,
+	0xfb, 0xf6, 0x2d, 0xf0, 0x1c, 0x77, 0x6b, 0x44, 0x38, 0xeb, 0x0d, 0x1a, 0x37, 0xed, 0x28, 0x66,
+	0x82, 0xa1, 0x21, 0xb7, 0x46, 0x43, 0xaf, 0xd9, 0x98, 0x9d, 0xb6, 0xe5, 0xa6, 0xfa, 0x69, 0x0d,
+	0x7a, 0xcc, 0x63, 0xf2, 0x84, 0xd3, 0xfa, 0x4d, 0x1d, 0xb6, 0x2e, 0x7b, 0x8c, 0x79, 0x01, 0x75,
+	0x48, 0xe4, 0x3b, 0x24, 0x0c, 0x99, 0x20, 0xc2, 0x67, 0x21, 0xd7, 0xbb, 0x25, 0x97, 0xf1, 0x3a,
+	0xe3, 0x4e, 0x95, 0x70, 0xaa, 0x3c, 0x9c, 0x8d, 0xc9, 0x2a, 0x15, 0x64, 0xd2, 0x89, 0x88, 0xe7,
+	0x87, 0xf2, 0xb0, 0x3e, 0x8b, 0x14, 0x49, 0x44, 0x62, 0x52, 0x6f, 0xeb, 0x2f, 0xa8, 0x35, 0xde,
+	0xe4, 0x82, 0xd6, 0x2b, 0x7e, 0xb8, 0xca, 0x0e, 0x6e, 0xd0, 0xd0, 0x8d, 0x9b, 0x91, 0xa8, 0xac,
+	0x51, 0x0d, 0x6f, 0x8d, 0x6a, 0x85, 0x60, 0x31, 0x5d, 0xa9, 0xb8, 0x2c, 0xdc, 0xa0, 0x31, 0x37,
+	0x6c, 0xf0, 0x20, 0x44, 0xcf, 0x5b, 0x20, 0x4b, 0xd2, 0xa7, 0x4c, 0xd7, 0x1b, 0x94, 0x0b, 0x5c,
+	0x86, 0xe7, 0x0f, 0xac, 0xf2, 0x88, 0x85, 0x9c, 0xa2, 0x7b, 0x70, 0x40, 0xf1, 0x0c, 0x83, 0x2b,
+	0x60, 0xfc, 0xf4, 0xd4, 0x88, 0xdd, 0xb1, 0x36, 0xb6, 0x92, 0xcd, 0xff, 0xb7, 0xfd, 0x6b, 0xb4,
+	0x50, 0xd6, 0x12, 0x7c, 0x09, 0x5e, 0x94, 0x77, 0x2e, 0x52, 0xb1, 0x2c, 0x03, 0x3c, 0x09, 0x57,
+	0x59, 0xdb, 0x90, 0x42, 0xab, 0xd3, 0xa6, 0xf6, 0x5d, 0x84, 0x30, 0x59, 0xd5, 0xde, 0x63, 0x19,
+	0xde, 0xc9, 0x41, 0xed, 0x6f, 0x48, 0xf1, 0xdd, 0x84, 0xe1, 0x91, 0xaa, 0xd5, 0x53, 0xda, 0xd4,
+	0x0c, 0x68, 0x18, 0x9e, 0x20, 0x2b, 0x2b, 0x31, 0xe5, 0x2a, 0xde, 0xa9, 0x72, 0xfb, 0x4f, 0x93,
+	0xce, 0x94, 0x25, 0x74, 0x74, 0x7f, 0x35, 0x87, 0x2e, 0x91, 0xb7, 0xe9, 0x12, 0x29, 0x76, 0x35,
+	0xdd, 0x5c, 0x10, 0xa4, 0xe9, 0x1e, 0x43, 0x98, 0xf4, 0x88, 0x76, 0xb9, 0x6e, 0xab, 0x86, 0xb2,
+	0x5b, 0x0d, 0x65, 0xab, 0xa6, 0xd5, 0x0d, 0x65, 0x2f, 0x11, 0x8f, 0x6a, 0x6d, 0xd9, 0x50, 0xe2,
+	0x2f, 0x40, 0x87, 0x39, 0xe4, 0x92, 0x11, 0xa6, 0xff, 0x98, 0x61, 0x5a, 0x17, 0x19, 0xbc, 0x7d,
+	0x92, 0xf7, 0x46, 0x2e, 0xaf, 0xa2, 0x38, 0x00, 0xfc, 0x0c, 0x8e, 0xed, 0xb7, 0x86, 0x6c, 0xe3,
+	0x05, 0xa3, 0x8b, 0xdb, 0xd5, 0x19, 0x87, 0x67, 0x6b, 0x84, 0xd7, 0x96, 0x48, 0x2c, 0x7c, 0xd7,
+	0x8f, 0x48, 0x28, 0xf4, 0x33, 0x3c, 0xbc, 0x8c, 0xdf, 0x00, 0x88, 0xbb, 0xdd, 0xa7, 0xeb, 0x50,
+	0x81, 0x88, 0xa7, 0x76, 0x75, 0xd9, 0x6f, 0x66, 0xb5, 0x5e, 0x4a, 0xa0, 0xeb, 0xd2, 0xe1, 0x2a,
+	0xbc, 0xa6, 0x63, 0xcd, 0x05, 0x41, 0x76, 0xac, 0x5e, 0x3d, 0xf4, 0x6f, 0xed, 0xd0, 0x19, 0x6e,
+	0x39, 0xa1, 0xfb, 0x7b, 0x14, 0xba, 0x67, 0x4d, 0x31, 0xf5, 0xfe, 0x24, 0xfc, 0x5f, 0x06, 0x42,
+	0x6f, 0x01, 0x1c, 0x50, 0xf3, 0x06, 0x65, 0x21, 0xa6, 0x07, 0x9c, 0x55, 0x3a, 0xca, 0x51, 0xe5,
+	0x8b, 0xaf, 0xbd, 0xfe, 0xf1, 0xe7, 0x43, 0xdf, 0x28, 0x1a, 0x71, 0x16, 0x5a, 0x9a, 0x17, 0x8d,
+	0xd9, 0x69, 0x67, 0x79, 0x41, 0x8e, 0x55, 0x63, 0x44, 0xa3, 0x8f, 0xc0, 0x9c, 0x52, 0xe8, 0x56,
+	0x37, 0x87, 0x4e, 0x33, 0xd0, 0x9a, 0xfc, 0x07, 0x85, 0x46, 0x2b, 0x49, 0xb4, 0xab, 0x08, 0x67,
+	0xa0, 0x19, 0x5f, 0x0a, 0xf4, 0x19, 0x40, 0x98, 0xbc, 0xb1, 0xb9, 0x7c, 0xa9, 0x09, 0x94, 0xcb,
+	0x97, 0x9e, 0x26, 0xf8, 0x8e, 0xe4, 0xb3, 0xd1, 0x44, 0x06, 0x9f, 0xf1, 0xc1, 0x72, 0x36, 0xf5,
+	0xb4, 0xdd, 0x42, 0x9f, 0x00, 0x3c, 0x93, 0x5c, 0x36, 0x17, 0x04, 0xdd, 0x61, 0x3b, 0x8d, 0xcb,
+	0xee, 0xb0, 0x1d, 0x47, 0x5f, 0x6e, 0x31, 0x0d, 0x58, 0xf4, 0x1d, 0x40, 0x94, 0xee, 0x7c, 0x34,
+	0x93, 0xf7, 0x08, 0xb3, 0xde, 0x74, 0x6b, 0xf6, 0x18, 0x4a, 0xcd, 0xfd, 0x50, 0x72, 0x3f, 0x40,
+	0xf7, 0xb3, 0x9a, 0x20, 0xfd, 0xf1, 0x77, 0x36, 0x0f, 0x8d, 0xc5, 0x2d, 0xf4, 0x15, 0xc0, 0xa1,
+	0xb4, 0x49, 0xab, 0xf8, 0x33, 0x39, 0xa5, 0x3c, 0x66, 0xa8, 0xae, 0xa3, 0x08, 0x4f, 0xc9, 0x50,
+	0x13, 0xa8, 0x74, 0xf4, 0x50, 0xf3, 0xf3, 0xdb, 0xbb, 0x45, 0xb0, 0xb3, 0x5b, 0x04, 0xbf, 0x77,
+	0x8b, 0xe0, 0xdd, 0x5e, 0xb1, 0xb0, 0xb3, 0x57, 0x2c, 0xfc, 0xdc, 0x2b, 0x16, 0x5e, 0x8e, 0x7b,
+	0xbe, 0xa8, 0x35, 0xaa, 0xb6, 0xcb, 0xea, 0xa9, 0xfb, 0x5e, 0xe9, 0x1b, 0x45, 0x33, 0xa2, 0xbc,
+	0x3a, 0x20, 0xff, 0x2d, 0xba, 0xfd, 0x37, 0x00, 0x00, 0xff, 0xff, 0xb5, 0x27, 0xd6, 0xde, 0x09,
+	0x0a, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -450,6 +649,10 @@ type QueryClient interface {
 	EncryptKey(ctx context.Context, in *QueryGetEncryptKeyRequest, opts ...grpc.CallOption) (*QueryGetEncryptKeyResponse, error)
 	// Queries a list of EncryptKey items.
 	EncryptKeyAll(ctx context.Context, in *QueryAllEncryptKeyRequest, opts ...grpc.CallOption) (*QueryAllEncryptKeyResponse, error)
+	// Queries a StoredConversation by index.
+	StoredConversation(ctx context.Context, in *QueryGetStoredConversationRequest, opts ...grpc.CallOption) (*QueryGetStoredConversationResponse, error)
+	// Queries a list of StoredConversation items.
+	StoredConversationAll(ctx context.Context, in *QueryAllStoredConversationRequest, opts ...grpc.CallOption) (*QueryAllStoredConversationResponse, error)
 }
 
 type queryClient struct {
@@ -496,6 +699,24 @@ func (c *queryClient) EncryptKeyAll(ctx context.Context, in *QueryAllEncryptKeyR
 	return out, nil
 }
 
+func (c *queryClient) StoredConversation(ctx context.Context, in *QueryGetStoredConversationRequest, opts ...grpc.CallOption) (*QueryGetStoredConversationResponse, error) {
+	out := new(QueryGetStoredConversationResponse)
+	err := c.cc.Invoke(ctx, "/chengyu97.schat.schat.Query/StoredConversation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) StoredConversationAll(ctx context.Context, in *QueryAllStoredConversationRequest, opts ...grpc.CallOption) (*QueryAllStoredConversationResponse, error) {
+	out := new(QueryAllStoredConversationResponse)
+	err := c.cc.Invoke(ctx, "/chengyu97.schat.schat.Query/StoredConversationAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -506,6 +727,10 @@ type QueryServer interface {
 	EncryptKey(context.Context, *QueryGetEncryptKeyRequest) (*QueryGetEncryptKeyResponse, error)
 	// Queries a list of EncryptKey items.
 	EncryptKeyAll(context.Context, *QueryAllEncryptKeyRequest) (*QueryAllEncryptKeyResponse, error)
+	// Queries a StoredConversation by index.
+	StoredConversation(context.Context, *QueryGetStoredConversationRequest) (*QueryGetStoredConversationResponse, error)
+	// Queries a list of StoredConversation items.
+	StoredConversationAll(context.Context, *QueryAllStoredConversationRequest) (*QueryAllStoredConversationResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -523,6 +748,12 @@ func (*UnimplementedQueryServer) EncryptKey(ctx context.Context, req *QueryGetEn
 }
 func (*UnimplementedQueryServer) EncryptKeyAll(ctx context.Context, req *QueryAllEncryptKeyRequest) (*QueryAllEncryptKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EncryptKeyAll not implemented")
+}
+func (*UnimplementedQueryServer) StoredConversation(ctx context.Context, req *QueryGetStoredConversationRequest) (*QueryGetStoredConversationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StoredConversation not implemented")
+}
+func (*UnimplementedQueryServer) StoredConversationAll(ctx context.Context, req *QueryAllStoredConversationRequest) (*QueryAllStoredConversationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StoredConversationAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -601,6 +832,42 @@ func _Query_EncryptKeyAll_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_StoredConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetStoredConversationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).StoredConversation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chengyu97.schat.schat.Query/StoredConversation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).StoredConversation(ctx, req.(*QueryGetStoredConversationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_StoredConversationAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllStoredConversationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).StoredConversationAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chengyu97.schat.schat.Query/StoredConversationAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).StoredConversationAll(ctx, req.(*QueryAllStoredConversationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "chengyu97.schat.schat.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -620,6 +887,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EncryptKeyAll",
 			Handler:    _Query_EncryptKeyAll_Handler,
+		},
+		{
+			MethodName: "StoredConversation",
+			Handler:    _Query_StoredConversation_Handler,
+		},
+		{
+			MethodName: "StoredConversationAll",
+			Handler:    _Query_StoredConversationAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -885,6 +1160,153 @@ func (m *QueryAllEncryptKeyResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetStoredConversationRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetStoredConversationRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetStoredConversationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.HashParticipant) > 0 {
+		i -= len(m.HashParticipant)
+		copy(dAtA[i:], m.HashParticipant)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.HashParticipant)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetStoredConversationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetStoredConversationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetStoredConversationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.StoredConversation.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllStoredConversationRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllStoredConversationRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllStoredConversationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllStoredConversationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllStoredConversationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllStoredConversationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.StoredConversation) > 0 {
+		for iNdEx := len(m.StoredConversation) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.StoredConversation[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -981,6 +1403,62 @@ func (m *QueryAllEncryptKeyResponse) Size() (n int) {
 	_ = l
 	if len(m.EncryptKey) > 0 {
 		for _, e := range m.EncryptKey {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetStoredConversationRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.HashParticipant)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetStoredConversationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.StoredConversation.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllStoredConversationRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllStoredConversationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.StoredConversation) > 0 {
+		for _, e := range m.StoredConversation {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -1575,6 +2053,377 @@ func (m *QueryAllEncryptKeyResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.EncryptKey = append(m.EncryptKey, EncryptKey{})
 			if err := m.EncryptKey[len(m.EncryptKey)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetStoredConversationRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetStoredConversationRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetStoredConversationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HashParticipant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.HashParticipant = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetStoredConversationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetStoredConversationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetStoredConversationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StoredConversation", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.StoredConversation.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllStoredConversationRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllStoredConversationRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllStoredConversationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllStoredConversationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllStoredConversationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllStoredConversationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StoredConversation", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.StoredConversation = append(m.StoredConversation, StoredConversation{})
+			if err := m.StoredConversation[len(m.StoredConversation)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

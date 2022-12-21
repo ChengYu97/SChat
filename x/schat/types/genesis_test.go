@@ -33,6 +33,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Address: "1",
 					},
 				},
+				StoredConversationList: []types.StoredConversation{
+					{
+						HashParticipant: "0",
+					},
+					{
+						HashParticipant: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -46,6 +54,20 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 					{
 						Address: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated storedConversation",
+			genState: &types.GenesisState{
+				StoredConversationList: []types.StoredConversation{
+					{
+						HashParticipant: "0",
+					},
+					{
+						HashParticipant: "0",
 					},
 				},
 			},

@@ -7,6 +7,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
+import { StoredConversation } from "../schat/stored_conversation";
 
 export const protobufPackage = "chengyu97.schat.schat";
 
@@ -39,6 +40,23 @@ export interface QueryAllEncryptKeyRequest {
 
 export interface QueryAllEncryptKeyResponse {
   encryptKey: EncryptKey[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetStoredConversationRequest {
+  hashParticipant: string;
+}
+
+export interface QueryGetStoredConversationResponse {
+  storedConversation: StoredConversation | undefined;
+}
+
+export interface QueryAllStoredConversationRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllStoredConversationResponse {
+  storedConversation: StoredConversation[];
   pagination: PageResponse | undefined;
 }
 
@@ -577,6 +595,351 @@ export const QueryAllEncryptKeyResponse = {
   },
 };
 
+const baseQueryGetStoredConversationRequest: object = { hashParticipant: "" };
+
+export const QueryGetStoredConversationRequest = {
+  encode(
+    message: QueryGetStoredConversationRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.hashParticipant !== "") {
+      writer.uint32(10).string(message.hashParticipant);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetStoredConversationRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetStoredConversationRequest,
+    } as QueryGetStoredConversationRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.hashParticipant = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetStoredConversationRequest {
+    const message = {
+      ...baseQueryGetStoredConversationRequest,
+    } as QueryGetStoredConversationRequest;
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      message.hashParticipant = String(object.hashParticipant);
+    } else {
+      message.hashParticipant = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetStoredConversationRequest): unknown {
+    const obj: any = {};
+    message.hashParticipant !== undefined &&
+      (obj.hashParticipant = message.hashParticipant);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetStoredConversationRequest>
+  ): QueryGetStoredConversationRequest {
+    const message = {
+      ...baseQueryGetStoredConversationRequest,
+    } as QueryGetStoredConversationRequest;
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      message.hashParticipant = object.hashParticipant;
+    } else {
+      message.hashParticipant = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetStoredConversationResponse: object = {};
+
+export const QueryGetStoredConversationResponse = {
+  encode(
+    message: QueryGetStoredConversationResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.storedConversation !== undefined) {
+      StoredConversation.encode(
+        message.storedConversation,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetStoredConversationResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetStoredConversationResponse,
+    } as QueryGetStoredConversationResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.storedConversation = StoredConversation.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetStoredConversationResponse {
+    const message = {
+      ...baseQueryGetStoredConversationResponse,
+    } as QueryGetStoredConversationResponse;
+    if (
+      object.storedConversation !== undefined &&
+      object.storedConversation !== null
+    ) {
+      message.storedConversation = StoredConversation.fromJSON(
+        object.storedConversation
+      );
+    } else {
+      message.storedConversation = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetStoredConversationResponse): unknown {
+    const obj: any = {};
+    message.storedConversation !== undefined &&
+      (obj.storedConversation = message.storedConversation
+        ? StoredConversation.toJSON(message.storedConversation)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetStoredConversationResponse>
+  ): QueryGetStoredConversationResponse {
+    const message = {
+      ...baseQueryGetStoredConversationResponse,
+    } as QueryGetStoredConversationResponse;
+    if (
+      object.storedConversation !== undefined &&
+      object.storedConversation !== null
+    ) {
+      message.storedConversation = StoredConversation.fromPartial(
+        object.storedConversation
+      );
+    } else {
+      message.storedConversation = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllStoredConversationRequest: object = {};
+
+export const QueryAllStoredConversationRequest = {
+  encode(
+    message: QueryAllStoredConversationRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllStoredConversationRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllStoredConversationRequest,
+    } as QueryAllStoredConversationRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllStoredConversationRequest {
+    const message = {
+      ...baseQueryAllStoredConversationRequest,
+    } as QueryAllStoredConversationRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllStoredConversationRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllStoredConversationRequest>
+  ): QueryAllStoredConversationRequest {
+    const message = {
+      ...baseQueryAllStoredConversationRequest,
+    } as QueryAllStoredConversationRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllStoredConversationResponse: object = {};
+
+export const QueryAllStoredConversationResponse = {
+  encode(
+    message: QueryAllStoredConversationResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.storedConversation) {
+      StoredConversation.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllStoredConversationResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllStoredConversationResponse,
+    } as QueryAllStoredConversationResponse;
+    message.storedConversation = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.storedConversation.push(
+            StoredConversation.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllStoredConversationResponse {
+    const message = {
+      ...baseQueryAllStoredConversationResponse,
+    } as QueryAllStoredConversationResponse;
+    message.storedConversation = [];
+    if (
+      object.storedConversation !== undefined &&
+      object.storedConversation !== null
+    ) {
+      for (const e of object.storedConversation) {
+        message.storedConversation.push(StoredConversation.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllStoredConversationResponse): unknown {
+    const obj: any = {};
+    if (message.storedConversation) {
+      obj.storedConversation = message.storedConversation.map((e) =>
+        e ? StoredConversation.toJSON(e) : undefined
+      );
+    } else {
+      obj.storedConversation = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllStoredConversationResponse>
+  ): QueryAllStoredConversationResponse {
+    const message = {
+      ...baseQueryAllStoredConversationResponse,
+    } as QueryAllStoredConversationResponse;
+    message.storedConversation = [];
+    if (
+      object.storedConversation !== undefined &&
+      object.storedConversation !== null
+    ) {
+      for (const e of object.storedConversation) {
+        message.storedConversation.push(StoredConversation.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -593,6 +956,14 @@ export interface Query {
   EncryptKeyAll(
     request: QueryAllEncryptKeyRequest
   ): Promise<QueryAllEncryptKeyResponse>;
+  /** Queries a StoredConversation by index. */
+  StoredConversation(
+    request: QueryGetStoredConversationRequest
+  ): Promise<QueryGetStoredConversationResponse>;
+  /** Queries a list of StoredConversation items. */
+  StoredConversationAll(
+    request: QueryAllStoredConversationRequest
+  ): Promise<QueryAllStoredConversationResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -649,6 +1020,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllEncryptKeyResponse.decode(new Reader(data))
+    );
+  }
+
+  StoredConversation(
+    request: QueryGetStoredConversationRequest
+  ): Promise<QueryGetStoredConversationResponse> {
+    const data = QueryGetStoredConversationRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "chengyu97.schat.schat.Query",
+      "StoredConversation",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetStoredConversationResponse.decode(new Reader(data))
+    );
+  }
+
+  StoredConversationAll(
+    request: QueryAllStoredConversationRequest
+  ): Promise<QueryAllStoredConversationResponse> {
+    const data = QueryAllStoredConversationRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "chengyu97.schat.schat.Query",
+      "StoredConversationAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllStoredConversationResponse.decode(new Reader(data))
     );
   }
 }

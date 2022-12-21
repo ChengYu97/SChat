@@ -2,10 +2,11 @@ import { txClient, queryClient, MissingWalletError , registry} from './module'
 
 import { EncryptKey } from "./module/types/schat/encrypt_key"
 import { Params } from "./module/types/schat/params"
+import { StoredConversation } from "./module/types/schat/stored_conversation"
 import { SystemInfo } from "./module/types/schat/system_info"
 
 
-export { EncryptKey, Params, SystemInfo };
+export { EncryptKey, Params, StoredConversation, SystemInfo };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -47,10 +48,13 @@ const getDefaultState = () => {
 				SystemInfo: {},
 				EncryptKey: {},
 				EncryptKeyAll: {},
+				StoredConversation: {},
+				StoredConversationAll: {},
 				
 				_Structure: {
 						EncryptKey: getStructure(EncryptKey.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
+						StoredConversation: getStructure(StoredConversation.fromPartial({})),
 						SystemInfo: getStructure(SystemInfo.fromPartial({})),
 						
 		},
@@ -103,6 +107,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.EncryptKeyAll[JSON.stringify(params)] ?? {}
+		},
+				getStoredConversation: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.StoredConversation[JSON.stringify(params)] ?? {}
+		},
+				getStoredConversationAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.StoredConversationAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -225,6 +241,54 @@ export default {
 				return getters['getEncryptKeyAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new Error('QueryClient:QueryEncryptKeyAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryStoredConversation({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryStoredConversation( key.hashParticipant)).data
+				
+					
+				commit('QUERY', { query: 'StoredConversation', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryStoredConversation', payload: { options: { all }, params: {...key},query }})
+				return getters['getStoredConversation']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryStoredConversation API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryStoredConversationAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryStoredConversationAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryStoredConversationAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'StoredConversationAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryStoredConversationAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getStoredConversationAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryStoredConversationAll API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

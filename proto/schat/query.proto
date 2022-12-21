@@ -7,6 +7,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "schat/params.proto";
 import "schat/system_info.proto";
 import "schat/encrypt_key.proto";
+import "schat/stored_conversation.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/ChengYu97/SChat/x/schat/types";
@@ -29,6 +30,16 @@ service Query {
 	// Queries a list of EncryptKey items.
 	rpc EncryptKeyAll(QueryAllEncryptKeyRequest) returns (QueryAllEncryptKeyResponse) {
 		option (google.api.http).get = "/ChengYu97/SChat/schat/encrypt_key";
+	}
+
+// Queries a StoredConversation by index.
+	rpc StoredConversation(QueryGetStoredConversationRequest) returns (QueryGetStoredConversationResponse) {
+		option (google.api.http).get = "/ChengYu97/SChat/schat/stored_conversation/{hashParticipant}";
+	}
+
+	// Queries a list of StoredConversation items.
+	rpc StoredConversationAll(QueryAllStoredConversationRequest) returns (QueryAllStoredConversationResponse) {
+		option (google.api.http).get = "/ChengYu97/SChat/schat/stored_conversation";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -63,6 +74,24 @@ message QueryAllEncryptKeyRequest {
 
 message QueryAllEncryptKeyResponse {
 	repeated EncryptKey encryptKey = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetStoredConversationRequest {
+	  string hashParticipant = 1;
+
+}
+
+message QueryGetStoredConversationResponse {
+	StoredConversation storedConversation = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllStoredConversationRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllStoredConversationResponse {
+	repeated StoredConversation storedConversation = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

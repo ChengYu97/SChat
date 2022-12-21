@@ -15,6 +15,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.EncryptKeyList {
 		k.SetEncryptKey(ctx, elem)
 	}
+	// Set all the storedConversation
+	for _, elem := range genState.StoredConversationList {
+		k.SetStoredConversation(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -30,6 +34,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		genesis.SystemInfo = systemInfo
 	}
 	genesis.EncryptKeyList = k.GetAllEncryptKey(ctx)
+	genesis.StoredConversationList = k.GetAllStoredConversation(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

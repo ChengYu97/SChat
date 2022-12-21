@@ -45,8 +45,27 @@ export interface SchatQueryAllEncryptKeyResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface SchatQueryAllStoredConversationResponse {
+  storedConversation?: SchatStoredConversation[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface SchatQueryGetEncryptKeyResponse {
   encryptKey?: SchatEncryptKey;
+}
+
+export interface SchatQueryGetStoredConversationResponse {
+  storedConversation?: SchatStoredConversation;
 }
 
 export interface SchatQueryGetSystemInfoResponse {
@@ -59,6 +78,12 @@ export interface SchatQueryGetSystemInfoResponse {
 export interface SchatQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: SchatParams;
+}
+
+export interface SchatStoredConversation {
+  hashParticipant?: string;
+  encryptKey?: string;
+  message?: string[];
 }
 
 export interface SchatSystemInfo {
@@ -378,6 +403,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<SchatQueryParamsResponse, RpcStatus>({
       path: `/ChengYu97/SChat/schat/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryStoredConversationAll
+   * @summary Queries a list of StoredConversation items.
+   * @request GET:/ChengYu97/SChat/schat/stored_conversation
+   */
+  queryStoredConversationAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<SchatQueryAllStoredConversationResponse, RpcStatus>({
+      path: `/ChengYu97/SChat/schat/stored_conversation`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryStoredConversation
+   * @summary Queries a StoredConversation by index.
+   * @request GET:/ChengYu97/SChat/schat/stored_conversation/{hashParticipant}
+   */
+  queryStoredConversation = (hashParticipant: string, params: RequestParams = {}) =>
+    this.request<SchatQueryGetStoredConversationResponse, RpcStatus>({
+      path: `/ChengYu97/SChat/schat/stored_conversation/${hashParticipant}`,
       method: "GET",
       format: "json",
       ...params,

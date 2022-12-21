@@ -13,7 +13,8 @@ func DefaultGenesis() *GenesisState {
 		SystemInfo: SystemInfo{
 			ConversationCount: 0,
 		},
-		EncryptKeyList: []EncryptKey{},
+		EncryptKeyList:         []EncryptKey{},
+		StoredConversationList: []StoredConversation{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -31,6 +32,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for encryptKey")
 		}
 		encryptKeyIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in storedConversation
+	storedConversationIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.StoredConversationList {
+		index := string(StoredConversationKey(elem.HashParticipant))
+		if _, ok := storedConversationIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for storedConversation")
+		}
+		storedConversationIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 
