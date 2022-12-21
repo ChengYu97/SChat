@@ -23,9 +23,11 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type StoredConversation struct {
-	HashParticipant string   `protobuf:"bytes,1,opt,name=hashParticipant,proto3" json:"hashParticipant,omitempty"`
-	EncryptKey      string   `protobuf:"bytes,2,opt,name=encryptKey,proto3" json:"encryptKey,omitempty"`
-	Message         []string `protobuf:"bytes,3,rep,name=message,proto3" json:"message,omitempty"`
+	HashParticipant string            `protobuf:"bytes,1,opt,name=hashParticipant,proto3" json:"hashParticipant,omitempty"`
+	EncryptKey      string            `protobuf:"bytes,2,opt,name=encryptKey,proto3" json:"encryptKey,omitempty"`
+	Message         []string          `protobuf:"bytes,3,rep,name=message,proto3" json:"message,omitempty"`
+	Participant     map[string]bool   `protobuf:"bytes,4,rep,name=participant,proto3" json:"participant,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	DecryptKey      map[string]string `protobuf:"bytes,5,rep,name=decryptKey,proto3" json:"decryptKey,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
 func (m *StoredConversation) Reset()         { *m = StoredConversation{} }
@@ -82,28 +84,51 @@ func (m *StoredConversation) GetMessage() []string {
 	return nil
 }
 
+func (m *StoredConversation) GetParticipant() map[string]bool {
+	if m != nil {
+		return m.Participant
+	}
+	return nil
+}
+
+func (m *StoredConversation) GetDecryptKey() map[string]string {
+	if m != nil {
+		return m.DecryptKey
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*StoredConversation)(nil), "chengyu97.schat.schat.StoredConversation")
+	proto.RegisterMapType((map[string]string)(nil), "chengyu97.schat.schat.StoredConversation.DecryptKeyEntry")
+	proto.RegisterMapType((map[string]bool)(nil), "chengyu97.schat.schat.StoredConversation.ParticipantEntry")
 }
 
 func init() { proto.RegisterFile("schat/stored_conversation.proto", fileDescriptor_1ee60e9b9ca9456f) }
 
 var fileDescriptor_1ee60e9b9ca9456f = []byte{
-	// 218 bytes of a gzipped FileDescriptorProto
+	// 323 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2f, 0x4e, 0xce, 0x48,
 	0x2c, 0xd1, 0x2f, 0x2e, 0xc9, 0x2f, 0x4a, 0x4d, 0x89, 0x4f, 0xce, 0xcf, 0x2b, 0x4b, 0x2d, 0x2a,
 	0x4e, 0x2c, 0xc9, 0xcc, 0xcf, 0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x4d, 0xce, 0x48,
-	0xcd, 0x4b, 0xaf, 0x2c, 0xb5, 0x34, 0xd7, 0x03, 0x2b, 0x85, 0x90, 0x4a, 0x15, 0x5c, 0x42, 0xc1,
-	0x60, 0x3d, 0xce, 0x48, 0x5a, 0x84, 0x34, 0xb8, 0xf8, 0x33, 0x12, 0x8b, 0x33, 0x02, 0x12, 0x8b,
-	0x4a, 0x32, 0x93, 0x33, 0x0b, 0x12, 0xf3, 0x4a, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xd0,
-	0x85, 0x85, 0xe4, 0xb8, 0xb8, 0x52, 0xf3, 0x92, 0x8b, 0x2a, 0x0b, 0x4a, 0xbc, 0x53, 0x2b, 0x25,
-	0x98, 0xc0, 0x8a, 0x90, 0x44, 0x84, 0x24, 0xb8, 0xd8, 0x73, 0x53, 0x8b, 0x8b, 0x13, 0xd3, 0x53,
-	0x25, 0x98, 0x15, 0x98, 0x35, 0x38, 0x83, 0x60, 0x5c, 0x27, 0xa7, 0x13, 0x8f, 0xe4, 0x18, 0x2f,
-	0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f, 0xe5, 0x18,
-	0x6e, 0x3c, 0x96, 0x63, 0x88, 0xd2, 0x48, 0xcf, 0x2c, 0xc9, 0x28, 0x4d, 0xd2, 0x4b, 0xce, 0xcf,
-	0xd5, 0x77, 0x06, 0xb9, 0x3a, 0xb2, 0xd4, 0xd2, 0x5c, 0x3f, 0xd8, 0x19, 0xe4, 0xc1, 0x0a, 0x7d,
-	0x88, 0x47, 0x4b, 0x2a, 0x0b, 0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x7e, 0x33, 0x06, 0x04, 0x00, 0x00,
-	0xff, 0xff, 0x9a, 0x03, 0x8c, 0xb9, 0xfe, 0x00, 0x00, 0x00,
+	0xcd, 0x4b, 0xaf, 0x2c, 0xb5, 0x34, 0xd7, 0x03, 0x2b, 0x85, 0x90, 0x4a, 0x1b, 0x98, 0xb9, 0x84,
+	0x82, 0xc1, 0x9a, 0x9c, 0x91, 0xf4, 0x08, 0x69, 0x70, 0xf1, 0x67, 0x24, 0x16, 0x67, 0x04, 0x24,
+	0x16, 0x95, 0x64, 0x26, 0x67, 0x16, 0x24, 0xe6, 0x95, 0x48, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06,
+	0xa1, 0x0b, 0x0b, 0xc9, 0x71, 0x71, 0xa5, 0xe6, 0x25, 0x17, 0x55, 0x16, 0x94, 0x78, 0xa7, 0x56,
+	0x4a, 0x30, 0x81, 0x15, 0x21, 0x89, 0x08, 0x49, 0x70, 0xb1, 0xe7, 0xa6, 0x16, 0x17, 0x27, 0xa6,
+	0xa7, 0x4a, 0x30, 0x2b, 0x30, 0x6b, 0x70, 0x06, 0xc1, 0xb8, 0x42, 0x31, 0x5c, 0xdc, 0x05, 0x48,
+	0xe6, 0xb3, 0x28, 0x30, 0x6b, 0x70, 0x1b, 0x59, 0xe9, 0x61, 0x75, 0xa7, 0x1e, 0xa6, 0x1b, 0xf5,
+	0x90, 0x5c, 0xe1, 0x9a, 0x57, 0x52, 0x54, 0x19, 0x84, 0x6c, 0x9c, 0x50, 0x24, 0x17, 0x57, 0x4a,
+	0x2a, 0xdc, 0x5d, 0xac, 0x60, 0xc3, 0x2d, 0x89, 0x37, 0xdc, 0x05, 0xae, 0x17, 0x62, 0x36, 0x92,
+	0x61, 0x52, 0x76, 0x5c, 0x02, 0xe8, 0x76, 0x0b, 0x09, 0x70, 0x31, 0x67, 0xa7, 0x56, 0x42, 0x03,
+	0x09, 0xc4, 0x14, 0x12, 0xe1, 0x62, 0x2d, 0x4b, 0xcc, 0x29, 0x4d, 0x05, 0x87, 0x09, 0x47, 0x10,
+	0x84, 0x63, 0xc5, 0x64, 0xc1, 0x28, 0x65, 0xcb, 0xc5, 0x8f, 0x66, 0x3c, 0x21, 0xed, 0x9c, 0x48,
+	0xda, 0x9d, 0x9c, 0x4e, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6,
+	0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e, 0x21, 0x4a, 0x23, 0x3d,
+	0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39, 0x3f, 0x57, 0xdf, 0x19, 0xe4, 0xd3, 0xc8, 0x52, 0x4b,
+	0x73, 0xfd, 0x60, 0x67, 0x50, 0xca, 0xa8, 0xd0, 0x87, 0xa4, 0x90, 0x92, 0xca, 0x82, 0xd4, 0xe2,
+	0x24, 0x36, 0x70, 0xa2, 0x30, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x61, 0x1f, 0xbe, 0xca, 0x37,
+	0x02, 0x00, 0x00,
 }
 
 func (m *StoredConversation) Marshal() (dAtA []byte, err error) {
@@ -126,6 +151,47 @@ func (m *StoredConversation) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.DecryptKey) > 0 {
+		for k := range m.DecryptKey {
+			v := m.DecryptKey[k]
+			baseI := i
+			i -= len(v)
+			copy(dAtA[i:], v)
+			i = encodeVarintStoredConversation(dAtA, i, uint64(len(v)))
+			i--
+			dAtA[i] = 0x12
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintStoredConversation(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintStoredConversation(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x2a
+		}
+	}
+	if len(m.Participant) > 0 {
+		for k := range m.Participant {
+			v := m.Participant[k]
+			baseI := i
+			i--
+			if v {
+				dAtA[i] = 1
+			} else {
+				dAtA[i] = 0
+			}
+			i--
+			dAtA[i] = 0x10
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintStoredConversation(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintStoredConversation(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x22
+		}
+	}
 	if len(m.Message) > 0 {
 		for iNdEx := len(m.Message) - 1; iNdEx >= 0; iNdEx-- {
 			i -= len(m.Message[iNdEx])
@@ -181,6 +247,22 @@ func (m *StoredConversation) Size() (n int) {
 		for _, s := range m.Message {
 			l = len(s)
 			n += 1 + l + sovStoredConversation(uint64(l))
+		}
+	}
+	if len(m.Participant) > 0 {
+		for k, v := range m.Participant {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovStoredConversation(uint64(len(k))) + 1 + 1
+			n += mapEntrySize + 1 + sovStoredConversation(uint64(mapEntrySize))
+		}
+	}
+	if len(m.DecryptKey) > 0 {
+		for k, v := range m.DecryptKey {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovStoredConversation(uint64(len(k))) + 1 + len(v) + sovStoredConversation(uint64(len(v)))
+			n += mapEntrySize + 1 + sovStoredConversation(uint64(mapEntrySize))
 		}
 	}
 	return n
@@ -316,6 +398,248 @@ func (m *StoredConversation) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Message = append(m.Message, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowStoredConversation
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthStoredConversation
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthStoredConversation
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Participant == nil {
+				m.Participant = make(map[string]bool)
+			}
+			var mapkey string
+			var mapvalue bool
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowStoredConversation
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowStoredConversation
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var mapvaluetemp int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowStoredConversation
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapvaluetemp |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					mapvalue = bool(mapvaluetemp != 0)
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipStoredConversation(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Participant[mapkey] = mapvalue
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DecryptKey", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowStoredConversation
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthStoredConversation
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthStoredConversation
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.DecryptKey == nil {
+				m.DecryptKey = make(map[string]string)
+			}
+			var mapkey string
+			var mapvalue string
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowStoredConversation
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowStoredConversation
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var stringLenmapvalue uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowStoredConversation
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapvalue |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapvalue := int(stringLenmapvalue)
+					if intStringLenmapvalue < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
+					if postStringIndexmapvalue < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					if postStringIndexmapvalue > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
+					iNdEx = postStringIndexmapvalue
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipStoredConversation(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthStoredConversation
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.DecryptKey[mapkey] = mapvalue
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
