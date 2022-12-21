@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "schat/params.proto";
 import "schat/system_info.proto";
+import "schat/encrypt_key.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/ChengYu97/SChat/x/schat/types";
@@ -20,6 +21,16 @@ service Query {
 	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
 		option (google.api.http).get = "/ChengYu97/SChat/schat/system_info";
 	}
+// Queries a EncryptKey by index.
+	rpc EncryptKey(QueryGetEncryptKeyRequest) returns (QueryGetEncryptKeyResponse) {
+		option (google.api.http).get = "/ChengYu97/SChat/schat/encrypt_key/{address}";
+	}
+
+	// Queries a list of EncryptKey items.
+	rpc EncryptKeyAll(QueryAllEncryptKeyRequest) returns (QueryAllEncryptKeyResponse) {
+		option (google.api.http).get = "/ChengYu97/SChat/schat/encrypt_key";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -37,4 +48,22 @@ message QueryGetSystemInfoRequest {}
 message QueryGetSystemInfoResponse {
 	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
 }
+message QueryGetEncryptKeyRequest {
+	  string address = 1;
+
+}
+
+message QueryGetEncryptKeyResponse {
+	EncryptKey encryptKey = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllEncryptKeyRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllEncryptKeyResponse {
+	repeated EncryptKey encryptKey = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 // this line is used by starport scaffolding # 3

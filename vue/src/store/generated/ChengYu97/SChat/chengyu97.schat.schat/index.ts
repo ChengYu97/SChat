@@ -1,10 +1,11 @@
 import { txClient, queryClient, MissingWalletError , registry} from './module'
 
+import { EncryptKey } from "./module/types/schat/encrypt_key"
 import { Params } from "./module/types/schat/params"
 import { SystemInfo } from "./module/types/schat/system_info"
 
 
-export { Params, SystemInfo };
+export { EncryptKey, Params, SystemInfo };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -44,8 +45,11 @@ const getDefaultState = () => {
 	return {
 				Params: {},
 				SystemInfo: {},
+				EncryptKey: {},
+				EncryptKeyAll: {},
 				
 				_Structure: {
+						EncryptKey: getStructure(EncryptKey.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
 						SystemInfo: getStructure(SystemInfo.fromPartial({})),
 						
@@ -87,6 +91,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.SystemInfo[JSON.stringify(params)] ?? {}
+		},
+				getEncryptKey: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.EncryptKey[JSON.stringify(params)] ?? {}
+		},
+				getEncryptKeyAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.EncryptKeyAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -161,6 +177,54 @@ export default {
 				return getters['getSystemInfo']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new Error('QueryClient:QuerySystemInfo API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryEncryptKey({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryEncryptKey( key.address)).data
+				
+					
+				commit('QUERY', { query: 'EncryptKey', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryEncryptKey', payload: { options: { all }, params: {...key},query }})
+				return getters['getEncryptKey']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryEncryptKey API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryEncryptKeyAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryEncryptKeyAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryEncryptKeyAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'EncryptKeyAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryEncryptKeyAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getEncryptKeyAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryEncryptKeyAll API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

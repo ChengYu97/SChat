@@ -1,0 +1,11 @@
+syntax = "proto3";
+package chengyu97.schat.schat;
+
+option go_package = "github.com/ChengYu97/SChat/x/schat/types";
+
+message EncryptKey {
+  string address = 1; 
+  string key = 2; 
+  
+}
+

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Params } from "../schat/params";
 import { SystemInfo } from "../schat/system_info";
+import { EncryptKey } from "../schat/encrypt_key";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "chengyu97.schat.schat";
@@ -8,8 +9,9 @@ export const protobufPackage = "chengyu97.schat.schat";
 /** GenesisState defines the schat module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   systemInfo: SystemInfo | undefined;
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  encryptKeyList: EncryptKey[];
 }
 
 const baseGenesisState: object = {};
@@ -22,6 +24,9 @@ export const GenesisState = {
     if (message.systemInfo !== undefined) {
       SystemInfo.encode(message.systemInfo, writer.uint32(18).fork()).ldelim();
     }
+    for (const v of message.encryptKeyList) {
+      EncryptKey.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -29,6 +34,7 @@ export const GenesisState = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
+    message.encryptKeyList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -37,6 +43,11 @@ export const GenesisState = {
           break;
         case 2:
           message.systemInfo = SystemInfo.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.encryptKeyList.push(
+            EncryptKey.decode(reader, reader.uint32())
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -48,6 +59,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
+    message.encryptKeyList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -57,6 +69,11 @@ export const GenesisState = {
       message.systemInfo = SystemInfo.fromJSON(object.systemInfo);
     } else {
       message.systemInfo = undefined;
+    }
+    if (object.encryptKeyList !== undefined && object.encryptKeyList !== null) {
+      for (const e of object.encryptKeyList) {
+        message.encryptKeyList.push(EncryptKey.fromJSON(e));
+      }
     }
     return message;
   },
@@ -69,11 +86,19 @@ export const GenesisState = {
       (obj.systemInfo = message.systemInfo
         ? SystemInfo.toJSON(message.systemInfo)
         : undefined);
+    if (message.encryptKeyList) {
+      obj.encryptKeyList = message.encryptKeyList.map((e) =>
+        e ? EncryptKey.toJSON(e) : undefined
+      );
+    } else {
+      obj.encryptKeyList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
+    message.encryptKeyList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -83,6 +108,11 @@ export const GenesisState = {
       message.systemInfo = SystemInfo.fromPartial(object.systemInfo);
     } else {
       message.systemInfo = undefined;
+    }
+    if (object.encryptKeyList !== undefined && object.encryptKeyList !== null) {
+      for (const e of object.encryptKeyList) {
+        message.encryptKeyList.push(EncryptKey.fromPartial(e));
+      }
     }
     return message;
   },
