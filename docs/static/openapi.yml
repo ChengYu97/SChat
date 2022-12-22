@@ -228,6 +228,14 @@ paths:
                       type: array
                       items:
                         type: string
+                    participant:
+                      type: object
+                      additionalProperties:
+                        type: boolean
+                    decryptKey:
+                      type: object
+                      additionalProperties:
+                        type: string
               pagination:
                 type: object
                 properties:
@@ -352,6 +360,14 @@ paths:
                   message:
                     type: array
                     items:
+                      type: string
+                  participant:
+                    type: object
+                    additionalProperties:
+                      type: boolean
+                  decryptKey:
+                    type: object
+                    additionalProperties:
                       type: string
         default:
           description: An unexpected error response.
@@ -30984,6 +31000,14 @@ definitions:
               type: array
               items:
                 type: string
+            participant:
+              type: object
+              additionalProperties:
+                type: boolean
+            decryptKey:
+              type: object
+              additionalProperties:
+                type: string
       pagination:
         type: object
         properties:
@@ -31033,6 +31057,14 @@ definitions:
             type: array
             items:
               type: string
+          participant:
+            type: object
+            additionalProperties:
+              type: boolean
+          decryptKey:
+            type: object
+            additionalProperties:
+              type: string
   chengyu97.schat.schat.QueryGetSystemInfoResponse:
     type: object
     properties:
@@ -31059,6 +31091,14 @@ definitions:
       message:
         type: array
         items:
+          type: string
+      participant:
+        type: object
+        additionalProperties:
+          type: boolean
+      decryptKey:
+        type: object
+        additionalProperties:
           type: string
   chengyu97.schat.schat.SystemInfo:
     type: object

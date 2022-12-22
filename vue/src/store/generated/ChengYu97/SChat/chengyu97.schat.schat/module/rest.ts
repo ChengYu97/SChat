@@ -84,6 +84,8 @@ export interface SchatStoredConversation {
   hashParticipant?: string;
   encryptKey?: string;
   message?: string[];
+  participant?: Record<string, boolean>;
+  decryptKey?: Record<string, string>;
 }
 
 export interface SchatSystemInfo {

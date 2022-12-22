@@ -30,6 +30,8 @@ func networkWithStoredConversationObjects(t *testing.T, n int) (*network.Network
 	for i := 0; i < n; i++ {
 		storedConversation := types.StoredConversation{
 			HashParticipant: strconv.Itoa(i),
+			Participant:     map[string]bool{},
+			DecryptKey:      map[string]string{},
 		}
 		nullify.Fill(&storedConversation)
 		state.StoredConversationList = append(state.StoredConversationList, storedConversation)
