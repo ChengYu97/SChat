@@ -30944,6 +30944,14 @@ definitions:
         type: string
       key:
         type: string
+  chengyu97.schat.schat.MsgAuthEncrptyKeyResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+      keyTotal:
+        type: string
+        format: uint64
   chengyu97.schat.schat.Params:
     type: object
     description: Params defines the parameters for the module.

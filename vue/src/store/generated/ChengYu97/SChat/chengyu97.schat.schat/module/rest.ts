@@ -25,6 +25,13 @@ export interface SchatEncryptKey {
   key?: string;
 }
 
+export interface SchatMsgAuthEncrptyKeyResponse {
+  success?: boolean;
+
+  /** @format uint64 */
+  keyTotal?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */
