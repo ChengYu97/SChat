@@ -8,6 +8,7 @@ option go_package = "github.com/ChengYu97/SChat/x/schat/types";
 // Msg defines the Msg service.
 service Msg {
       rpc AuthEncrptyKey(MsgAuthEncrptyKey) returns (MsgAuthEncrptyKeyResponse);
+  rpc CreateConversation(MsgCreateConversation) returns (MsgCreateConversationResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -19,6 +20,15 @@ message MsgAuthEncrptyKey {
 message MsgAuthEncrptyKeyResponse {
   bool success = 1;
   uint64 keyTotal = 2;
+}
+
+message MsgCreateConversation {
+  string creator = 1;
+  repeated string participant = 2;
+}
+
+message MsgCreateConversationResponse {
+  string hashParticipant = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

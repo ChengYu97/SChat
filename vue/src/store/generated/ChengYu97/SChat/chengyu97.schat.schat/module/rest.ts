@@ -32,6 +32,10 @@ export interface SchatMsgAuthEncrptyKeyResponse {
   keyTotal?: string;
 }
 
+export interface SchatMsgCreateConversationResponse {
+  hashParticipant?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */

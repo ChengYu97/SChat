@@ -28,6 +28,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgAuthEncrptyKey int = 100
 
+	opWeightMsgCreateConversation = "op_weight_msg_create_conversation"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateConversation int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -71,6 +75,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgAuthEncrptyKey,
 		schatsimulation.SimulateMsgAuthEncrptyKey(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCreateConversation int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateConversation, &weightMsgCreateConversation, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateConversation = defaultWeightMsgCreateConversation
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateConversation,
+		schatsimulation.SimulateMsgCreateConversation(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

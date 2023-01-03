@@ -14,6 +14,15 @@ export interface MsgAuthEncrptyKeyResponse {
   keyTotal: number;
 }
 
+export interface MsgCreateConversation {
+  creator: string;
+  participant: string[];
+}
+
+export interface MsgCreateConversationResponse {
+  hashParticipant: string;
+}
+
 const baseMsgAuthEncrptyKey: object = { creator: "", key: "" };
 
 export const MsgAuthEncrptyKey = {
@@ -172,12 +181,175 @@ export const MsgAuthEncrptyKeyResponse = {
   },
 };
 
+const baseMsgCreateConversation: object = { creator: "", participant: "" };
+
+export const MsgCreateConversation = {
+  encode(
+    message: MsgCreateConversation,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    for (const v of message.participant) {
+      writer.uint32(18).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateConversation {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateConversation } as MsgCreateConversation;
+    message.participant = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.participant.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateConversation {
+    const message = { ...baseMsgCreateConversation } as MsgCreateConversation;
+    message.participant = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.participant !== undefined && object.participant !== null) {
+      for (const e of object.participant) {
+        message.participant.push(String(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateConversation): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    if (message.participant) {
+      obj.participant = message.participant.map((e) => e);
+    } else {
+      obj.participant = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateConversation>
+  ): MsgCreateConversation {
+    const message = { ...baseMsgCreateConversation } as MsgCreateConversation;
+    message.participant = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.participant !== undefined && object.participant !== null) {
+      for (const e of object.participant) {
+        message.participant.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateConversationResponse: object = { hashParticipant: "" };
+
+export const MsgCreateConversationResponse = {
+  encode(
+    message: MsgCreateConversationResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.hashParticipant !== "") {
+      writer.uint32(10).string(message.hashParticipant);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateConversationResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateConversationResponse,
+    } as MsgCreateConversationResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.hashParticipant = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateConversationResponse {
+    const message = {
+      ...baseMsgCreateConversationResponse,
+    } as MsgCreateConversationResponse;
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      message.hashParticipant = String(object.hashParticipant);
+    } else {
+      message.hashParticipant = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateConversationResponse): unknown {
+    const obj: any = {};
+    message.hashParticipant !== undefined &&
+      (obj.hashParticipant = message.hashParticipant);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateConversationResponse>
+  ): MsgCreateConversationResponse {
+    const message = {
+      ...baseMsgCreateConversationResponse,
+    } as MsgCreateConversationResponse;
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      message.hashParticipant = object.hashParticipant;
+    } else {
+      message.hashParticipant = "";
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   AuthEncrptyKey(
     request: MsgAuthEncrptyKey
   ): Promise<MsgAuthEncrptyKeyResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateConversation(
+    request: MsgCreateConversation
+  ): Promise<MsgCreateConversationResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -196,6 +368,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgAuthEncrptyKeyResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateConversation(
+    request: MsgCreateConversation
+  ): Promise<MsgCreateConversationResponse> {
+    const data = MsgCreateConversation.encode(request).finish();
+    const promise = this.rpc.request(
+      "chengyu97.schat.schat.Msg",
+      "CreateConversation",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateConversationResponse.decode(new Reader(data))
     );
   }
 }

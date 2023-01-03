@@ -30952,6 +30952,11 @@ definitions:
       keyTotal:
         type: string
         format: uint64
+  chengyu97.schat.schat.MsgCreateConversationResponse:
+    type: object
+    properties:
+      hashParticipant:
+        type: string
   chengyu97.schat.schat.Params:
     type: object
     description: Params defines the parameters for the module.

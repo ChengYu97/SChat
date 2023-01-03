@@ -131,31 +131,135 @@ func (m *MsgAuthEncrptyKeyResponse) GetKeyTotal() uint64 {
 	return 0
 }
 
+type MsgCreateConversation struct {
+	Creator     string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Participant []string `protobuf:"bytes,2,rep,name=participant,proto3" json:"participant,omitempty"`
+}
+
+func (m *MsgCreateConversation) Reset()         { *m = MsgCreateConversation{} }
+func (m *MsgCreateConversation) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateConversation) ProtoMessage()    {}
+func (*MsgCreateConversation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d5e5c2496a0ba0af, []int{2}
+}
+func (m *MsgCreateConversation) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateConversation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateConversation.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateConversation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateConversation.Merge(m, src)
+}
+func (m *MsgCreateConversation) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateConversation) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateConversation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateConversation proto.InternalMessageInfo
+
+func (m *MsgCreateConversation) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreateConversation) GetParticipant() []string {
+	if m != nil {
+		return m.Participant
+	}
+	return nil
+}
+
+type MsgCreateConversationResponse struct {
+	HashParticipant string `protobuf:"bytes,1,opt,name=hashParticipant,proto3" json:"hashParticipant,omitempty"`
+}
+
+func (m *MsgCreateConversationResponse) Reset()         { *m = MsgCreateConversationResponse{} }
+func (m *MsgCreateConversationResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateConversationResponse) ProtoMessage()    {}
+func (*MsgCreateConversationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d5e5c2496a0ba0af, []int{3}
+}
+func (m *MsgCreateConversationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateConversationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateConversationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateConversationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateConversationResponse.Merge(m, src)
+}
+func (m *MsgCreateConversationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateConversationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateConversationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateConversationResponse proto.InternalMessageInfo
+
+func (m *MsgCreateConversationResponse) GetHashParticipant() string {
+	if m != nil {
+		return m.HashParticipant
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*MsgAuthEncrptyKey)(nil), "chengyu97.schat.schat.MsgAuthEncrptyKey")
 	proto.RegisterType((*MsgAuthEncrptyKeyResponse)(nil), "chengyu97.schat.schat.MsgAuthEncrptyKeyResponse")
+	proto.RegisterType((*MsgCreateConversation)(nil), "chengyu97.schat.schat.MsgCreateConversation")
+	proto.RegisterType((*MsgCreateConversationResponse)(nil), "chengyu97.schat.schat.MsgCreateConversationResponse")
 }
 
 func init() { proto.RegisterFile("schat/tx.proto", fileDescriptor_d5e5c2496a0ba0af) }
 
 var fileDescriptor_d5e5c2496a0ba0af = []byte{
-	// 251 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2b, 0x4e, 0xce, 0x48,
-	0x2c, 0xd1, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x4d, 0xce, 0x48, 0xcd,
-	0x4b, 0xaf, 0x2c, 0xb5, 0x34, 0xd7, 0x03, 0xcb, 0x40, 0x48, 0x25, 0x7b, 0x2e, 0x41, 0xdf, 0xe2,
-	0x74, 0xc7, 0xd2, 0x92, 0x0c, 0xd7, 0xbc, 0xe4, 0xa2, 0x82, 0x92, 0x4a, 0xef, 0xd4, 0x4a, 0x21,
-	0x09, 0x2e, 0xf6, 0xe4, 0xa2, 0xd4, 0xc4, 0x92, 0xfc, 0x22, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce,
-	0x20, 0x18, 0x57, 0x48, 0x80, 0x8b, 0x39, 0x3b, 0xb5, 0x52, 0x82, 0x09, 0x2c, 0x0a, 0x62, 0x2a,
-	0x05, 0x72, 0x49, 0x62, 0x18, 0x10, 0x94, 0x5a, 0x5c, 0x90, 0x9f, 0x57, 0x9c, 0x0a, 0x32, 0xa8,
-	0xb8, 0x34, 0x39, 0x39, 0xb5, 0xb8, 0x18, 0x6c, 0x10, 0x47, 0x10, 0x8c, 0x2b, 0x24, 0xc5, 0xc5,
-	0x91, 0x9d, 0x5a, 0x19, 0x92, 0x5f, 0x92, 0x98, 0x03, 0x36, 0x8d, 0x25, 0x08, 0xce, 0x37, 0x2a,
-	0xe6, 0x62, 0xf6, 0x2d, 0x4e, 0x17, 0xca, 0xe1, 0xe2, 0x43, 0x73, 0x97, 0x86, 0x1e, 0x56, 0x4f,
-	0xe8, 0x61, 0x38, 0x40, 0xca, 0x80, 0x58, 0x95, 0x30, 0xa7, 0x3a, 0x39, 0x9d, 0x78, 0x24, 0xc7,
-	0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72, 0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c,
-	0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x46, 0x7a, 0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72,
-	0x7e, 0xae, 0xbe, 0x33, 0xc8, 0xd4, 0xc8, 0x52, 0x4b, 0x73, 0xfd, 0x60, 0x67, 0x50, 0xf0, 0x56,
-	0xe8, 0x43, 0x83, 0xb9, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x1c, 0xd4, 0xc6, 0x80, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x62, 0xde, 0x2d, 0xe8, 0x7c, 0x01, 0x00, 0x00,
+	// 341 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x92, 0xc1, 0x4a, 0xf3, 0x40,
+	0x14, 0x85, 0x9b, 0xf6, 0xe7, 0xb7, 0xbd, 0x42, 0xd5, 0x40, 0x21, 0x16, 0x0c, 0x25, 0xab, 0x2c,
+	0x24, 0x11, 0x15, 0x4a, 0x57, 0x62, 0x83, 0x0b, 0x91, 0x82, 0xa6, 0x6e, 0x74, 0x37, 0x1d, 0x86,
+	0x24, 0xb4, 0x66, 0x86, 0xb9, 0x13, 0xe9, 0xbc, 0x85, 0x8f, 0xe5, 0xb2, 0x4b, 0x97, 0xd2, 0xae,
+	0x7d, 0x07, 0x49, 0x6a, 0x4b, 0x69, 0xab, 0xe8, 0x26, 0xe4, 0xde, 0xb9, 0x7c, 0xe7, 0x70, 0x38,
+	0x50, 0x47, 0x1a, 0x13, 0xe5, 0xab, 0xb1, 0x27, 0x24, 0x57, 0xdc, 0x6c, 0xd0, 0x98, 0xa5, 0x91,
+	0xce, 0x3a, 0x6d, 0xaf, 0x78, 0x99, 0x7f, 0x9d, 0x0b, 0x38, 0xe8, 0x61, 0x74, 0x99, 0xa9, 0xf8,
+	0x2a, 0xa5, 0x52, 0x28, 0x7d, 0xc3, 0xb4, 0x69, 0xc1, 0x0e, 0x95, 0x8c, 0x28, 0x2e, 0x2d, 0xa3,
+	0x65, 0xb8, 0xb5, 0x70, 0x31, 0x9a, 0xfb, 0x50, 0x19, 0x32, 0x6d, 0x95, 0x8b, 0x6d, 0xfe, 0xeb,
+	0xdc, 0xc1, 0xe1, 0x06, 0x20, 0x64, 0x28, 0x78, 0x8a, 0x2c, 0x07, 0x61, 0x46, 0x29, 0x43, 0x2c,
+	0x40, 0xd5, 0x70, 0x31, 0x9a, 0x4d, 0xa8, 0x0e, 0x99, 0xbe, 0xe7, 0x8a, 0x8c, 0x0a, 0xda, 0xbf,
+	0x70, 0x39, 0x3b, 0x7d, 0x68, 0xf4, 0x30, 0x0a, 0x72, 0x49, 0x16, 0xf0, 0xf4, 0x99, 0x49, 0x24,
+	0x2a, 0xe1, 0xe9, 0x0f, 0xbe, 0x5a, 0xb0, 0x2b, 0x88, 0x54, 0x09, 0x4d, 0x04, 0x49, 0x95, 0x55,
+	0x6e, 0x55, 0xdc, 0x5a, 0xb8, 0xba, 0x72, 0xae, 0xe1, 0x68, 0x2b, 0x74, 0xe9, 0xd5, 0x85, 0xbd,
+	0x98, 0x60, 0x7c, 0xbb, 0x82, 0x99, 0x8b, 0xac, 0xaf, 0x4f, 0x3f, 0x0c, 0xa8, 0xf4, 0x30, 0x32,
+	0x47, 0x50, 0x5f, 0x0b, 0xce, 0xf5, 0xb6, 0xa6, 0xec, 0x6d, 0x24, 0xd4, 0x3c, 0xf9, 0xed, 0xe5,
+	0xd2, 0xdf, 0x18, 0xcc, 0x2d, 0x91, 0x1c, 0x7f, 0xcf, 0xd9, 0xbc, 0x6e, 0x9e, 0xff, 0xe5, 0x7a,
+	0xa1, 0xdc, 0xed, 0xbe, 0x4e, 0x6d, 0x63, 0x32, 0xb5, 0x8d, 0xf7, 0xa9, 0x6d, 0xbc, 0xcc, 0xec,
+	0xd2, 0x64, 0x66, 0x97, 0xde, 0x66, 0x76, 0xe9, 0xd1, 0x8d, 0x12, 0x15, 0x67, 0x03, 0x8f, 0xf2,
+	0x27, 0x3f, 0xc8, 0xc9, 0x0f, 0x59, 0xa7, 0xed, 0xf7, 0x83, 0xbc, 0x79, 0x63, 0xff, 0xab, 0x81,
+	0x5a, 0x30, 0x1c, 0xfc, 0x2f, 0x5a, 0x78, 0xf6, 0x19, 0x00, 0x00, 0xff, 0xff, 0x69, 0xd7, 0xcd,
+	0xa6, 0x97, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -171,6 +275,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	AuthEncrptyKey(ctx context.Context, in *MsgAuthEncrptyKey, opts ...grpc.CallOption) (*MsgAuthEncrptyKeyResponse, error)
+	CreateConversation(ctx context.Context, in *MsgCreateConversation, opts ...grpc.CallOption) (*MsgCreateConversationResponse, error)
 }
 
 type msgClient struct {
@@ -190,9 +295,19 @@ func (c *msgClient) AuthEncrptyKey(ctx context.Context, in *MsgAuthEncrptyKey, o
 	return out, nil
 }
 
+func (c *msgClient) CreateConversation(ctx context.Context, in *MsgCreateConversation, opts ...grpc.CallOption) (*MsgCreateConversationResponse, error) {
+	out := new(MsgCreateConversationResponse)
+	err := c.cc.Invoke(ctx, "/chengyu97.schat.schat.Msg/CreateConversation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	AuthEncrptyKey(context.Context, *MsgAuthEncrptyKey) (*MsgAuthEncrptyKeyResponse, error)
+	CreateConversation(context.Context, *MsgCreateConversation) (*MsgCreateConversationResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -201,6 +316,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) AuthEncrptyKey(ctx context.Context, req *MsgAuthEncrptyKey) (*MsgAuthEncrptyKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AuthEncrptyKey not implemented")
+}
+func (*UnimplementedMsgServer) CreateConversation(ctx context.Context, req *MsgCreateConversation) (*MsgCreateConversationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateConversation not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -225,6 +343,24 @@ func _Msg_AuthEncrptyKey_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateConversation)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateConversation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chengyu97.schat.schat.Msg/CreateConversation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateConversation(ctx, req.(*MsgCreateConversation))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "chengyu97.schat.schat.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -232,6 +368,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AuthEncrptyKey",
 			Handler:    _Msg_AuthEncrptyKey_Handler,
+		},
+		{
+			MethodName: "CreateConversation",
+			Handler:    _Msg_CreateConversation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -313,6 +453,75 @@ func (m *MsgAuthEncrptyKeyResponse) MarshalToSizedBuffer(dAtA []byte) (int, erro
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgCreateConversation) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateConversation) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateConversation) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Participant) > 0 {
+		for iNdEx := len(m.Participant) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Participant[iNdEx])
+			copy(dAtA[i:], m.Participant[iNdEx])
+			i = encodeVarintTx(dAtA, i, uint64(len(m.Participant[iNdEx])))
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreateConversationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateConversationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateConversationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.HashParticipant) > 0 {
+		i -= len(m.HashParticipant)
+		copy(dAtA[i:], m.HashParticipant)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.HashParticipant)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -352,6 +561,38 @@ func (m *MsgAuthEncrptyKeyResponse) Size() (n int) {
 	}
 	if m.KeyTotal != 0 {
 		n += 1 + sovTx(uint64(m.KeyTotal))
+	}
+	return n
+}
+
+func (m *MsgCreateConversation) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if len(m.Participant) > 0 {
+		for _, s := range m.Participant {
+			l = len(s)
+			n += 1 + l + sovTx(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *MsgCreateConversationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.HashParticipant)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
@@ -544,6 +785,202 @@ func (m *MsgAuthEncrptyKeyResponse) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateConversation) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateConversation: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateConversation: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Participant = append(m.Participant, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateConversationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateConversationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateConversationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HashParticipant", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.HashParticipant = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
