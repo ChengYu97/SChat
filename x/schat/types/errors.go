@@ -10,3 +10,7 @@ import (
 var (
 	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
 )
+
+var (
+	ErrAddressHasBeenCertified = sdkerrors.Register(ModuleName, 1201, "Current address has been certified")
+)
