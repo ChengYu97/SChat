@@ -9,6 +9,7 @@ option go_package = "github.com/ChengYu97/SChat/x/schat/types";
 service Msg {
       rpc AuthEncrptyKey(MsgAuthEncrptyKey) returns (MsgAuthEncrptyKeyResponse);
   rpc CreateConversation(MsgCreateConversation) returns (MsgCreateConversationResponse);
+  rpc SendMessage(MsgSendMessage) returns (MsgSendMessageResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -29,6 +30,15 @@ message MsgCreateConversation {
 
 message MsgCreateConversationResponse {
   string hashParticipant = 1;
+}
+
+message MsgSendMessage {
+  string creator = 1;
+  string hashParticipant = 2;
+  string message = 3;
+}
+
+message MsgSendMessageResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

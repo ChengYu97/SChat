@@ -30957,6 +30957,8 @@ definitions:
     properties:
       hashParticipant:
         type: string
+  chengyu97.schat.schat.MsgSendMessageResponse:
+    type: object
   chengyu97.schat.schat.Params:
     type: object
     description: Params defines the parameters for the module.

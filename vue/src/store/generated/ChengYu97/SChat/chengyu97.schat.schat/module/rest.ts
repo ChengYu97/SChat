@@ -36,6 +36,8 @@ export interface SchatMsgCreateConversationResponse {
   hashParticipant?: string;
 }
 
+export type SchatMsgSendMessageResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

@@ -10,6 +10,7 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgAuthEncrptyKey{}, "schat/AuthEncrptyKey", nil)
 	cdc.RegisterConcrete(&MsgCreateConversation{}, "schat/CreateConversation", nil)
+	cdc.RegisterConcrete(&MsgSendMessage{}, "schat/SendMessage", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -19,6 +20,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateConversation{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSendMessage{},
 	)
 	// this line is used by starport scaffolding # 3
 
