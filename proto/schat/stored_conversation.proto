@@ -4,7 +4,7 @@ package chengyu97.schat.schat;
 option go_package = "github.com/ChengYu97/SChat/x/schat/types";
 
 message StoredConversation {
-  string hashParticipant = 1; 
+  repeated uint32 hashParticipant = 1; 
   string encryptKey = 2; 
   repeated string message = 3; 
   map<string, bool> participant = 4;

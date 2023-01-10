@@ -175,7 +175,7 @@ func request_Query_StoredConversation_0(ctx context.Context, marshaler runtime.M
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "hashParticipant")
 	}
 
-	protoReq.HashParticipant, err = runtime.String(val)
+	protoReq.HashParticipant, err = runtime.Uint32Slice(val, ",")
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hashParticipant", err)
@@ -202,7 +202,7 @@ func local_request_Query_StoredConversation_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "hashParticipant")
 	}
 
-	protoReq.HashParticipant, err = runtime.String(val)
+	protoReq.HashParticipant, err = runtime.Uint32Slice(val, ",")
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hashParticipant", err)
@@ -265,7 +265,7 @@ func request_Query_StoredConversationEncryptKey_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "hashParticipant")
 	}
 
-	protoReq.HashParticipant, err = runtime.String(val)
+	protoReq.HashParticipant, err = runtime.Uint32Slice(val, ",")
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hashParticipant", err)
@@ -292,7 +292,7 @@ func local_request_Query_StoredConversationEncryptKey_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "hashParticipant")
 	}
 
-	protoReq.HashParticipant, err = runtime.String(val)
+	protoReq.HashParticipant, err = runtime.Uint32Slice(val, ",")
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hashParticipant", err)

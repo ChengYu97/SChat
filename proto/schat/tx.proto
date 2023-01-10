@@ -29,12 +29,12 @@ message MsgCreateConversation {
 }
 
 message MsgCreateConversationResponse {
-  string hashParticipant = 1;
+  repeated uint32 hashParticipant = 1;
 }
 
 message MsgSendMessage {
   string creator = 1;
-  string hashParticipant = 2;
+  repeated uint32 hashParticipant = 2;
   string message = 3;
 }
 

@@ -86,7 +86,7 @@ message QueryAllEncryptKeyResponse {
 }
 
 message QueryGetStoredConversationEncryptKeyRequest {
-	string hashParticipant = 1;
+	repeated uint32 hashParticipant = 1;
 }
 
 message QueryGetStoredConversationEncryptKeyResponse {
@@ -101,7 +101,7 @@ message QueryGenRsaCryptKeyResponse {
 }
 
 message QueryGetStoredConversationRequest {
-	  string hashParticipant = 1;
+	repeated uint32 hashParticipant = 1;
 
 }
 
