@@ -1,6 +1,7 @@
 package rsa2048
 
 import (
+	"bytes"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
@@ -60,4 +61,20 @@ func (priKey *RSA2048PriKey) PubKey() pubkeyencrypt.PubKey {
 
 func (priKey *RSA2048PriKey) Decrypt(cipherMsg []byte) ([]byte, error) {
 	return rsa.DecryptPKCS1v15(rand.Reader, priKey.key, cipherMsg)
+}
+
+func (priKey *RSA2048PriKey) DecryptLongMessage(msg []byte) (result []byte, err error) {
+	sliceMsg := bytes.Split(msg, pubkeyencrypt.MsgSplitFlag)
+
+	for _, cipherMsg := range sliceMsg {
+		if len(cipherMsg) == 0 {
+			continue
+		}
+		partMsg, err := rsa.DecryptPKCS1v15(rand.Reader, priKey.key, cipherMsg)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, partMsg...)
+	}
+	return
 }
