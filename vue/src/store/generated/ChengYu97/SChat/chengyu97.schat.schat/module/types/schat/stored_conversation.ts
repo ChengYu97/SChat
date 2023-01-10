@@ -4,7 +4,7 @@ import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "chengyu97.schat.schat";
 
 export interface StoredConversation {
-  hashParticipant: string;
+  hashParticipant: number[];
   encryptKey: string;
   message: string[];
   participant: { [key: string]: boolean };
@@ -22,7 +22,7 @@ export interface StoredConversation_DecryptKeyEntry {
 }
 
 const baseStoredConversation: object = {
-  hashParticipant: "",
+  hashParticipant: 0,
   encryptKey: "",
   message: "",
 };
@@ -32,9 +32,11 @@ export const StoredConversation = {
     message: StoredConversation,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.hashParticipant !== "") {
-      writer.uint32(10).string(message.hashParticipant);
+    writer.uint32(10).fork();
+    for (const v of message.hashParticipant) {
+      writer.uint32(v);
     }
+    writer.ldelim();
     if (message.encryptKey !== "") {
       writer.uint32(18).string(message.encryptKey);
     }
@@ -60,6 +62,7 @@ export const StoredConversation = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseStoredConversation } as StoredConversation;
+    message.hashParticipant = [];
     message.message = [];
     message.participant = {};
     message.decryptKey = {};
@@ -67,7 +70,14 @@ export const StoredConversation = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.hashParticipant = reader.string();
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.hashParticipant.push(reader.uint32());
+            }
+          } else {
+            message.hashParticipant.push(reader.uint32());
+          }
           break;
         case 2:
           message.encryptKey = reader.string();
@@ -103,6 +113,7 @@ export const StoredConversation = {
 
   fromJSON(object: any): StoredConversation {
     const message = { ...baseStoredConversation } as StoredConversation;
+    message.hashParticipant = [];
     message.message = [];
     message.participant = {};
     message.decryptKey = {};
@@ -110,9 +121,9 @@ export const StoredConversation = {
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = String(object.hashParticipant);
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(Number(e));
+      }
     }
     if (object.encryptKey !== undefined && object.encryptKey !== null) {
       message.encryptKey = String(object.encryptKey);
@@ -139,8 +150,11 @@ export const StoredConversation = {
 
   toJSON(message: StoredConversation): unknown {
     const obj: any = {};
-    message.hashParticipant !== undefined &&
-      (obj.hashParticipant = message.hashParticipant);
+    if (message.hashParticipant) {
+      obj.hashParticipant = message.hashParticipant.map((e) => e);
+    } else {
+      obj.hashParticipant = [];
+    }
     message.encryptKey !== undefined && (obj.encryptKey = message.encryptKey);
     if (message.message) {
       obj.message = message.message.map((e) => e);
@@ -164,6 +178,7 @@ export const StoredConversation = {
 
   fromPartial(object: DeepPartial<StoredConversation>): StoredConversation {
     const message = { ...baseStoredConversation } as StoredConversation;
+    message.hashParticipant = [];
     message.message = [];
     message.participant = {};
     message.decryptKey = {};
@@ -171,9 +186,9 @@ export const StoredConversation = {
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = object.hashParticipant;
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(e);
+      }
     }
     if (object.encryptKey !== undefined && object.encryptKey !== null) {
       message.encryptKey = object.encryptKey;

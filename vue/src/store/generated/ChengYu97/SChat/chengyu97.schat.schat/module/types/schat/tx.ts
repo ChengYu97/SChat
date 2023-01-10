@@ -20,12 +20,12 @@ export interface MsgCreateConversation {
 }
 
 export interface MsgCreateConversationResponse {
-  hashParticipant: string;
+  hashParticipant: number[];
 }
 
 export interface MsgSendMessage {
   creator: string;
-  hashParticipant: string;
+  hashParticipant: number[];
   message: string;
 }
 
@@ -273,16 +273,18 @@ export const MsgCreateConversation = {
   },
 };
 
-const baseMsgCreateConversationResponse: object = { hashParticipant: "" };
+const baseMsgCreateConversationResponse: object = { hashParticipant: 0 };
 
 export const MsgCreateConversationResponse = {
   encode(
     message: MsgCreateConversationResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.hashParticipant !== "") {
-      writer.uint32(10).string(message.hashParticipant);
+    writer.uint32(10).fork();
+    for (const v of message.hashParticipant) {
+      writer.uint32(v);
     }
+    writer.ldelim();
     return writer;
   },
 
@@ -295,11 +297,19 @@ export const MsgCreateConversationResponse = {
     const message = {
       ...baseMsgCreateConversationResponse,
     } as MsgCreateConversationResponse;
+    message.hashParticipant = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.hashParticipant = reader.string();
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.hashParticipant.push(reader.uint32());
+            }
+          } else {
+            message.hashParticipant.push(reader.uint32());
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -313,21 +323,25 @@ export const MsgCreateConversationResponse = {
     const message = {
       ...baseMsgCreateConversationResponse,
     } as MsgCreateConversationResponse;
+    message.hashParticipant = [];
     if (
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = String(object.hashParticipant);
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(Number(e));
+      }
     }
     return message;
   },
 
   toJSON(message: MsgCreateConversationResponse): unknown {
     const obj: any = {};
-    message.hashParticipant !== undefined &&
-      (obj.hashParticipant = message.hashParticipant);
+    if (message.hashParticipant) {
+      obj.hashParticipant = message.hashParticipant.map((e) => e);
+    } else {
+      obj.hashParticipant = [];
+    }
     return obj;
   },
 
@@ -337,13 +351,14 @@ export const MsgCreateConversationResponse = {
     const message = {
       ...baseMsgCreateConversationResponse,
     } as MsgCreateConversationResponse;
+    message.hashParticipant = [];
     if (
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = object.hashParticipant;
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(e);
+      }
     }
     return message;
   },
@@ -351,7 +366,7 @@ export const MsgCreateConversationResponse = {
 
 const baseMsgSendMessage: object = {
   creator: "",
-  hashParticipant: "",
+  hashParticipant: 0,
   message: "",
 };
 
@@ -360,9 +375,11 @@ export const MsgSendMessage = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.hashParticipant !== "") {
-      writer.uint32(18).string(message.hashParticipant);
+    writer.uint32(18).fork();
+    for (const v of message.hashParticipant) {
+      writer.uint32(v);
     }
+    writer.ldelim();
     if (message.message !== "") {
       writer.uint32(26).string(message.message);
     }
@@ -373,6 +390,7 @@ export const MsgSendMessage = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseMsgSendMessage } as MsgSendMessage;
+    message.hashParticipant = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -380,7 +398,14 @@ export const MsgSendMessage = {
           message.creator = reader.string();
           break;
         case 2:
-          message.hashParticipant = reader.string();
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.hashParticipant.push(reader.uint32());
+            }
+          } else {
+            message.hashParticipant.push(reader.uint32());
+          }
           break;
         case 3:
           message.message = reader.string();
@@ -395,6 +420,7 @@ export const MsgSendMessage = {
 
   fromJSON(object: any): MsgSendMessage {
     const message = { ...baseMsgSendMessage } as MsgSendMessage;
+    message.hashParticipant = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -404,9 +430,9 @@ export const MsgSendMessage = {
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = String(object.hashParticipant);
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(Number(e));
+      }
     }
     if (object.message !== undefined && object.message !== null) {
       message.message = String(object.message);
@@ -419,14 +445,18 @@ export const MsgSendMessage = {
   toJSON(message: MsgSendMessage): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
-    message.hashParticipant !== undefined &&
-      (obj.hashParticipant = message.hashParticipant);
+    if (message.hashParticipant) {
+      obj.hashParticipant = message.hashParticipant.map((e) => e);
+    } else {
+      obj.hashParticipant = [];
+    }
     message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgSendMessage>): MsgSendMessage {
     const message = { ...baseMsgSendMessage } as MsgSendMessage;
+    message.hashParticipant = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -436,9 +466,9 @@ export const MsgSendMessage = {
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = object.hashParticipant;
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(e);
+      }
     }
     if (object.message !== undefined && object.message !== null) {
       message.message = object.message;

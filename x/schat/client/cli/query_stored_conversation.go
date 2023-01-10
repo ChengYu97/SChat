@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/ChengYu97/SChat/x/schat/types"
+	"github.com/ChengYu97/SChat/x/schat/util/conv"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
@@ -52,7 +53,10 @@ func CmdShowStoredConversation() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argHashParticipant := args[0]
+			argHashParticipant, err := conv.String2Uint(args[0])
+			if err != nil {
+				return err
+			}
 
 			params := &types.QueryGetStoredConversationRequest{
 				HashParticipant: argHashParticipant,

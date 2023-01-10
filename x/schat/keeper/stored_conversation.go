@@ -18,7 +18,7 @@ func (k Keeper) SetStoredConversation(ctx sdk.Context, storedConversation types.
 // GetStoredConversation returns a storedConversation from its index
 func (k Keeper) GetStoredConversation(
 	ctx sdk.Context,
-	hashParticipant string,
+	hashParticipant []uint32,
 
 ) (val types.StoredConversation, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.StoredConversationKeyPrefix))
@@ -37,7 +37,7 @@ func (k Keeper) GetStoredConversation(
 // RemoveStoredConversation removes a storedConversation from the store
 func (k Keeper) RemoveStoredConversation(
 	ctx sdk.Context,
-	hashParticipant string,
+	hashParticipant []uint32,
 
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.StoredConversationKeyPrefix))

@@ -254,7 +254,10 @@ paths:
                   type: object
                   properties:
                     hashParticipant:
-                      type: string
+                      type: array
+                      items:
+                        type: integer
+                        format: int64
                     encryptKey:
                       type: string
                     message:
@@ -387,7 +390,10 @@ paths:
                 type: object
                 properties:
                   hashParticipant:
-                    type: string
+                    type: array
+                    items:
+                      type: integer
+                      format: int64
                   encryptKey:
                     type: string
                   message:
@@ -424,7 +430,12 @@ paths:
         - name: hashParticipant
           in: path
           required: true
-          type: string
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: csv
+          minItems: 1
       tags:
         - Query
   '/ChengYu97/SChat/schat/stored_conversation_encrypt_key/{hashParticipant}':
@@ -460,7 +471,12 @@ paths:
         - name: hashParticipant
           in: path
           required: true
-          type: string
+          type: array
+          items:
+            type: integer
+            format: int64
+          collectionFormat: csv
+          minItems: 1
       tags:
         - Query
   /ChengYu97/SChat/schat/system_info:
@@ -31025,7 +31041,10 @@ definitions:
     type: object
     properties:
       hashParticipant:
-        type: string
+        type: array
+        items:
+          type: integer
+          format: int64
   chengyu97.schat.schat.MsgSendMessageResponse:
     type: object
   chengyu97.schat.schat.Params:
@@ -31077,7 +31096,10 @@ definitions:
           type: object
           properties:
             hashParticipant:
-              type: string
+              type: array
+              items:
+                type: integer
+                format: int64
             encryptKey:
               type: string
             message:
@@ -31146,7 +31168,10 @@ definitions:
         type: object
         properties:
           hashParticipant:
-            type: string
+            type: array
+            items:
+              type: integer
+              format: int64
           encryptKey:
             type: string
           message:
@@ -31181,7 +31206,10 @@ definitions:
     type: object
     properties:
       hashParticipant:
-        type: string
+        type: array
+        items:
+          type: integer
+          format: int64
       encryptKey:
         type: string
       message:

@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/ChengYu97/SChat/x/schat/types"
+	"github.com/ChengYu97/SChat/x/schat/util/conv"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -18,7 +19,10 @@ func CmdSendMessage() *cobra.Command {
 		Short: "Broadcast message sendMessage",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argHashParticipant := args[0]
+			argHashParticipant, err := conv.String2Uint(args[0])
+			if err != nil {
+				return err
+			}
 			argMessage := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)

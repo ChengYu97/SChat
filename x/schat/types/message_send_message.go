@@ -9,7 +9,7 @@ const TypeMsgSendMessage = "send_message"
 
 var _ sdk.Msg = &MsgSendMessage{}
 
-func NewMsgSendMessage(creator string, hashParticipant string, message string) *MsgSendMessage {
+func NewMsgSendMessage(creator string, hashParticipant []uint32, message string) *MsgSendMessage {
 	return &MsgSendMessage{
 		Creator:         creator,
 		HashParticipant: hashParticipant,

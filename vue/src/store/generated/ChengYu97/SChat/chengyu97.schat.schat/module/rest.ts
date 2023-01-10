@@ -33,7 +33,7 @@ export interface SchatMsgAuthEncrptyKeyResponse {
 }
 
 export interface SchatMsgCreateConversationResponse {
-  hashParticipant?: string;
+  hashParticipant?: number[];
 }
 
 export type SchatMsgSendMessageResponse = object;
@@ -103,7 +103,7 @@ export interface SchatQueryParamsResponse {
 }
 
 export interface SchatStoredConversation {
-  hashParticipant?: string;
+  hashParticipant?: number[];
   encryptKey?: string;
   message?: string[];
   participant?: Record<string, boolean>;
@@ -481,7 +481,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a StoredConversation by index.
    * @request GET:/ChengYu97/SChat/schat/stored_conversation/{hashParticipant}
    */
-  queryStoredConversation = (hashParticipant: string, params: RequestParams = {}) =>
+  queryStoredConversation = (hashParticipant: number[], params: RequestParams = {}) =>
     this.request<SchatQueryGetStoredConversationResponse, RpcStatus>({
       path: `/ChengYu97/SChat/schat/stored_conversation/${hashParticipant}`,
       method: "GET",
@@ -496,7 +496,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @name QueryStoredConversationEncryptKey
    * @request GET:/ChengYu97/SChat/schat/stored_conversation_encrypt_key/{hashParticipant}
    */
-  queryStoredConversationEncryptKey = (hashParticipant: string, params: RequestParams = {}) =>
+  queryStoredConversationEncryptKey = (hashParticipant: number[], params: RequestParams = {}) =>
     this.request<SchatQueryGetStoredConversationEncryptKeyResponse, RpcStatus>({
       path: `/ChengYu97/SChat/schat/stored_conversation_encrypt_key/${hashParticipant}`,
       method: "GET",

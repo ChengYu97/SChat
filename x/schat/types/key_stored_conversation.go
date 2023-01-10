@@ -1,6 +1,10 @@
 package types
 
-import "encoding/binary"
+import (
+	"encoding/binary"
+
+	"github.com/ChengYu97/SChat/x/schat/util/conv"
+)
 
 var _ binary.ByteOrder
 
@@ -11,11 +15,11 @@ const (
 
 // StoredConversationKey returns the store key to retrieve a StoredConversation from the index fields
 func StoredConversationKey(
-	hashParticipant string,
+	hashParticipant []uint32,
 ) []byte {
 	var key []byte
 
-	hashParticipantBytes := []byte(hashParticipant)
+	hashParticipantBytes := conv.ArrayUint2Byte(hashParticipant)
 	key = append(key, hashParticipantBytes...)
 	key = append(key, []byte("/")...)
 

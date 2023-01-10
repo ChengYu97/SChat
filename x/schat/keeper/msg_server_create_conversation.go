@@ -40,7 +40,7 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 			participants[participant] = ""
 		}
 	}
-	hashParticipant := conv.UnsafeBytesToStr(hasher.Sum(nil))
+	hashParticipant := conv.ArrayByte2Uint(hasher.Sum(nil))
 
 	// check if conversation exist
 	_, found = k.Keeper.GetStoredConversation(ctx, hashParticipant)

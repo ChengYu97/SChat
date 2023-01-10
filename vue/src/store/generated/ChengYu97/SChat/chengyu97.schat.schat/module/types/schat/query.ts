@@ -44,7 +44,7 @@ export interface QueryAllEncryptKeyResponse {
 }
 
 export interface QueryGetStoredConversationEncryptKeyRequest {
-  hashParticipant: string;
+  hashParticipant: number[];
 }
 
 export interface QueryGetStoredConversationEncryptKeyResponse {
@@ -59,7 +59,7 @@ export interface QueryGenRsaCryptKeyResponse {
 }
 
 export interface QueryGetStoredConversationRequest {
-  hashParticipant: string;
+  hashParticipant: number[];
 }
 
 export interface QueryGetStoredConversationResponse {
@@ -611,7 +611,7 @@ export const QueryAllEncryptKeyResponse = {
 };
 
 const baseQueryGetStoredConversationEncryptKeyRequest: object = {
-  hashParticipant: "",
+  hashParticipant: 0,
 };
 
 export const QueryGetStoredConversationEncryptKeyRequest = {
@@ -619,9 +619,11 @@ export const QueryGetStoredConversationEncryptKeyRequest = {
     message: QueryGetStoredConversationEncryptKeyRequest,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.hashParticipant !== "") {
-      writer.uint32(10).string(message.hashParticipant);
+    writer.uint32(10).fork();
+    for (const v of message.hashParticipant) {
+      writer.uint32(v);
     }
+    writer.ldelim();
     return writer;
   },
 
@@ -634,11 +636,19 @@ export const QueryGetStoredConversationEncryptKeyRequest = {
     const message = {
       ...baseQueryGetStoredConversationEncryptKeyRequest,
     } as QueryGetStoredConversationEncryptKeyRequest;
+    message.hashParticipant = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.hashParticipant = reader.string();
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.hashParticipant.push(reader.uint32());
+            }
+          } else {
+            message.hashParticipant.push(reader.uint32());
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -652,21 +662,25 @@ export const QueryGetStoredConversationEncryptKeyRequest = {
     const message = {
       ...baseQueryGetStoredConversationEncryptKeyRequest,
     } as QueryGetStoredConversationEncryptKeyRequest;
+    message.hashParticipant = [];
     if (
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = String(object.hashParticipant);
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(Number(e));
+      }
     }
     return message;
   },
 
   toJSON(message: QueryGetStoredConversationEncryptKeyRequest): unknown {
     const obj: any = {};
-    message.hashParticipant !== undefined &&
-      (obj.hashParticipant = message.hashParticipant);
+    if (message.hashParticipant) {
+      obj.hashParticipant = message.hashParticipant.map((e) => e);
+    } else {
+      obj.hashParticipant = [];
+    }
     return obj;
   },
 
@@ -676,13 +690,14 @@ export const QueryGetStoredConversationEncryptKeyRequest = {
     const message = {
       ...baseQueryGetStoredConversationEncryptKeyRequest,
     } as QueryGetStoredConversationEncryptKeyRequest;
+    message.hashParticipant = [];
     if (
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = object.hashParticipant;
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(e);
+      }
     }
     return message;
   },
@@ -897,16 +912,18 @@ export const QueryGenRsaCryptKeyResponse = {
   },
 };
 
-const baseQueryGetStoredConversationRequest: object = { hashParticipant: "" };
+const baseQueryGetStoredConversationRequest: object = { hashParticipant: 0 };
 
 export const QueryGetStoredConversationRequest = {
   encode(
     message: QueryGetStoredConversationRequest,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.hashParticipant !== "") {
-      writer.uint32(10).string(message.hashParticipant);
+    writer.uint32(10).fork();
+    for (const v of message.hashParticipant) {
+      writer.uint32(v);
     }
+    writer.ldelim();
     return writer;
   },
 
@@ -919,11 +936,19 @@ export const QueryGetStoredConversationRequest = {
     const message = {
       ...baseQueryGetStoredConversationRequest,
     } as QueryGetStoredConversationRequest;
+    message.hashParticipant = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.hashParticipant = reader.string();
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.hashParticipant.push(reader.uint32());
+            }
+          } else {
+            message.hashParticipant.push(reader.uint32());
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -937,21 +962,25 @@ export const QueryGetStoredConversationRequest = {
     const message = {
       ...baseQueryGetStoredConversationRequest,
     } as QueryGetStoredConversationRequest;
+    message.hashParticipant = [];
     if (
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = String(object.hashParticipant);
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(Number(e));
+      }
     }
     return message;
   },
 
   toJSON(message: QueryGetStoredConversationRequest): unknown {
     const obj: any = {};
-    message.hashParticipant !== undefined &&
-      (obj.hashParticipant = message.hashParticipant);
+    if (message.hashParticipant) {
+      obj.hashParticipant = message.hashParticipant.map((e) => e);
+    } else {
+      obj.hashParticipant = [];
+    }
     return obj;
   },
 
@@ -961,13 +990,14 @@ export const QueryGetStoredConversationRequest = {
     const message = {
       ...baseQueryGetStoredConversationRequest,
     } as QueryGetStoredConversationRequest;
+    message.hashParticipant = [];
     if (
       object.hashParticipant !== undefined &&
       object.hashParticipant !== null
     ) {
-      message.hashParticipant = object.hashParticipant;
-    } else {
-      message.hashParticipant = "";
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(e);
+      }
     }
     return message;
   },
