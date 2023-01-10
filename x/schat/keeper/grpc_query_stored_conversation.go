@@ -55,3 +55,17 @@ func (k Keeper) StoredConversation(c context.Context, req *types.QueryGetStoredC
 
 	return &types.QueryGetStoredConversationResponse{StoredConversation: val}, nil
 }
+
+func (k Keeper) StoredConversationEncryptKey(c context.Context, req *types.QueryGetStoredConversationEncryptKeyRequest) (*types.QueryGetStoredConversationEncryptKeyResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	ctx := sdk.UnwrapSDKContext(c)
+
+	val, found := k.GetStoredConversation(ctx, req.HashParticipant)
+	if !found {
+		return nil, status.Error(codes.NotFound, "not found")
+	}
+
+	return &types.QueryGetStoredConversationEncryptKeyResponse{EncryptKey: val.EncryptKey}, nil
+}

@@ -73,8 +73,17 @@ export interface SchatQueryAllStoredConversationResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface SchatQueryGenRsaCryptKeyResponse {
+  pubKey?: string;
+  priKey?: string;
+}
+
 export interface SchatQueryGetEncryptKeyResponse {
   encryptKey?: SchatEncryptKey;
+}
+
+export interface SchatQueryGetStoredConversationEncryptKeyResponse {
+  encryptKey?: string;
 }
 
 export interface SchatQueryGetStoredConversationResponse {
@@ -411,6 +420,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Query
+   * @name QueryGenRsaCryptKey
+   * @request GET:/ChengYu97/SChat/schat/gen_rsa_crypt_key
+   */
+  queryGenRsaCryptKey = (params: RequestParams = {}) =>
+    this.request<SchatQueryGenRsaCryptKeyResponse, RpcStatus>({
+      path: `/ChengYu97/SChat/schat/gen_rsa_crypt_key`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
    * @name QueryParams
    * @summary Parameters queries the parameters of the module.
    * @request GET:/ChengYu97/SChat/schat/params
@@ -460,6 +484,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryStoredConversation = (hashParticipant: string, params: RequestParams = {}) =>
     this.request<SchatQueryGetStoredConversationResponse, RpcStatus>({
       path: `/ChengYu97/SChat/schat/stored_conversation/${hashParticipant}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryStoredConversationEncryptKey
+   * @request GET:/ChengYu97/SChat/schat/stored_conversation_encrypt_key/{hashParticipant}
+   */
+  queryStoredConversationEncryptKey = (hashParticipant: string, params: RequestParams = {}) =>
+    this.request<SchatQueryGetStoredConversationEncryptKeyResponse, RpcStatus>({
+      path: `/ChengYu97/SChat/schat/stored_conversation_encrypt_key/${hashParticipant}`,
       method: "GET",
       format: "json",
       ...params,

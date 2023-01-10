@@ -42,6 +42,14 @@ service Query {
 		option (google.api.http).get = "/ChengYu97/SChat/schat/stored_conversation";
 	}
 
+	rpc StoredConversationEncryptKey(QueryGetStoredConversationEncryptKeyRequest) returns (QueryGetStoredConversationEncryptKeyResponse) {
+		option (google.api.http).get = "/ChengYu97/SChat/schat/stored_conversation_encrypt_key/{hashParticipant}";
+	}
+
+	rpc GenRsaCryptKey(QueryGenRsaCryptKeyRequest) returns (QueryGenRsaCryptKeyResponse) {
+		option (google.api.http).get = "/ChengYu97/SChat/schat/gen_rsa_crypt_key";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -75,6 +83,21 @@ message QueryAllEncryptKeyRequest {
 message QueryAllEncryptKeyResponse {
 	repeated EncryptKey encryptKey = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetStoredConversationEncryptKeyRequest {
+	string hashParticipant = 1;
+}
+
+message QueryGetStoredConversationEncryptKeyResponse {
+	string encryptKey = 1;
+}
+
+message QueryGenRsaCryptKeyRequest {}
+
+message QueryGenRsaCryptKeyResponse {
+	string pubKey = 1;
+	string priKey = 2;
 }
 
 message QueryGetStoredConversationRequest {

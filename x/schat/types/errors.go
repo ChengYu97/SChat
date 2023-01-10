@@ -26,4 +26,5 @@ var (
 	// util
 	// public encrypt
 	ErrRsaGenPriKey = sdkerrors.Register(ModuleName, 1311, "Failed to gen rsa private key")
+	ErrRsaDecodePem = sdkerrors.Register(ModuleName, 1312, "Failed to parse pubkey from pem")
 )

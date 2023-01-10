@@ -50,6 +50,8 @@ const getDefaultState = () => {
 				EncryptKeyAll: {},
 				StoredConversation: {},
 				StoredConversationAll: {},
+				StoredConversationEncryptKey: {},
+				GenRsaCryptKey: {},
 				
 				_Structure: {
 						EncryptKey: getStructure(EncryptKey.fromPartial({})),
@@ -119,6 +121,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.StoredConversationAll[JSON.stringify(params)] ?? {}
+		},
+				getStoredConversationEncryptKey: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.StoredConversationEncryptKey[JSON.stringify(params)] ?? {}
+		},
+				getGenRsaCryptKey: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.GenRsaCryptKey[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -294,6 +308,65 @@ export default {
 		},
 		
 		
+		
+		
+		 		
+		
+		
+		async QueryStoredConversationEncryptKey({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryStoredConversationEncryptKey( key.hashParticipant)).data
+				
+					
+				commit('QUERY', { query: 'StoredConversationEncryptKey', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryStoredConversationEncryptKey', payload: { options: { all }, params: {...key},query }})
+				return getters['getStoredConversationEncryptKey']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryStoredConversationEncryptKey API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryGenRsaCryptKey({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryGenRsaCryptKey()).data
+				
+					
+				commit('QUERY', { query: 'GenRsaCryptKey', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryGenRsaCryptKey', payload: { options: { all }, params: {...key},query }})
+				return getters['getGenRsaCryptKey']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryGenRsaCryptKey API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		async sendMsgCreateConversation({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateConversation(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateConversation:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCreateConversation:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgSendMessage({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -324,22 +397,20 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateConversation({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		async MsgCreateConversation({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgCreateConversation(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new Error('TxClient:MsgCreateConversation:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateConversation:Send Could not broadcast Tx: '+ e.message)
+				} else{
+					throw new Error('TxClient:MsgCreateConversation:Create Could not create message: ' + e.message)
 				}
 			}
 		},
-		
 		async MsgSendMessage({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -363,19 +434,6 @@ export default {
 					throw new Error('TxClient:MsgAuthEncrptyKey:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgAuthEncrptyKey:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateConversation({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateConversation(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateConversation:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCreateConversation:Create Could not create message: ' + e.message)
 				}
 			}
 		},

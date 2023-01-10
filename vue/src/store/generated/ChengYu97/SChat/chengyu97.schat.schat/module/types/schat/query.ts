@@ -43,6 +43,21 @@ export interface QueryAllEncryptKeyResponse {
   pagination: PageResponse | undefined;
 }
 
+export interface QueryGetStoredConversationEncryptKeyRequest {
+  hashParticipant: string;
+}
+
+export interface QueryGetStoredConversationEncryptKeyResponse {
+  encryptKey: string;
+}
+
+export interface QueryGenRsaCryptKeyRequest {}
+
+export interface QueryGenRsaCryptKeyResponse {
+  pubKey: string;
+  priKey: string;
+}
+
 export interface QueryGetStoredConversationRequest {
   hashParticipant: string;
 }
@@ -595,6 +610,293 @@ export const QueryAllEncryptKeyResponse = {
   },
 };
 
+const baseQueryGetStoredConversationEncryptKeyRequest: object = {
+  hashParticipant: "",
+};
+
+export const QueryGetStoredConversationEncryptKeyRequest = {
+  encode(
+    message: QueryGetStoredConversationEncryptKeyRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.hashParticipant !== "") {
+      writer.uint32(10).string(message.hashParticipant);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetStoredConversationEncryptKeyRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetStoredConversationEncryptKeyRequest,
+    } as QueryGetStoredConversationEncryptKeyRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.hashParticipant = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetStoredConversationEncryptKeyRequest {
+    const message = {
+      ...baseQueryGetStoredConversationEncryptKeyRequest,
+    } as QueryGetStoredConversationEncryptKeyRequest;
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      message.hashParticipant = String(object.hashParticipant);
+    } else {
+      message.hashParticipant = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetStoredConversationEncryptKeyRequest): unknown {
+    const obj: any = {};
+    message.hashParticipant !== undefined &&
+      (obj.hashParticipant = message.hashParticipant);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetStoredConversationEncryptKeyRequest>
+  ): QueryGetStoredConversationEncryptKeyRequest {
+    const message = {
+      ...baseQueryGetStoredConversationEncryptKeyRequest,
+    } as QueryGetStoredConversationEncryptKeyRequest;
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      message.hashParticipant = object.hashParticipant;
+    } else {
+      message.hashParticipant = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetStoredConversationEncryptKeyResponse: object = {
+  encryptKey: "",
+};
+
+export const QueryGetStoredConversationEncryptKeyResponse = {
+  encode(
+    message: QueryGetStoredConversationEncryptKeyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.encryptKey !== "") {
+      writer.uint32(10).string(message.encryptKey);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetStoredConversationEncryptKeyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetStoredConversationEncryptKeyResponse,
+    } as QueryGetStoredConversationEncryptKeyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.encryptKey = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetStoredConversationEncryptKeyResponse {
+    const message = {
+      ...baseQueryGetStoredConversationEncryptKeyResponse,
+    } as QueryGetStoredConversationEncryptKeyResponse;
+    if (object.encryptKey !== undefined && object.encryptKey !== null) {
+      message.encryptKey = String(object.encryptKey);
+    } else {
+      message.encryptKey = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetStoredConversationEncryptKeyResponse): unknown {
+    const obj: any = {};
+    message.encryptKey !== undefined && (obj.encryptKey = message.encryptKey);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetStoredConversationEncryptKeyResponse>
+  ): QueryGetStoredConversationEncryptKeyResponse {
+    const message = {
+      ...baseQueryGetStoredConversationEncryptKeyResponse,
+    } as QueryGetStoredConversationEncryptKeyResponse;
+    if (object.encryptKey !== undefined && object.encryptKey !== null) {
+      message.encryptKey = object.encryptKey;
+    } else {
+      message.encryptKey = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGenRsaCryptKeyRequest: object = {};
+
+export const QueryGenRsaCryptKeyRequest = {
+  encode(
+    _: QueryGenRsaCryptKeyRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGenRsaCryptKeyRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGenRsaCryptKeyRequest,
+    } as QueryGenRsaCryptKeyRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryGenRsaCryptKeyRequest {
+    const message = {
+      ...baseQueryGenRsaCryptKeyRequest,
+    } as QueryGenRsaCryptKeyRequest;
+    return message;
+  },
+
+  toJSON(_: QueryGenRsaCryptKeyRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryGenRsaCryptKeyRequest>
+  ): QueryGenRsaCryptKeyRequest {
+    const message = {
+      ...baseQueryGenRsaCryptKeyRequest,
+    } as QueryGenRsaCryptKeyRequest;
+    return message;
+  },
+};
+
+const baseQueryGenRsaCryptKeyResponse: object = { pubKey: "", priKey: "" };
+
+export const QueryGenRsaCryptKeyResponse = {
+  encode(
+    message: QueryGenRsaCryptKeyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pubKey !== "") {
+      writer.uint32(10).string(message.pubKey);
+    }
+    if (message.priKey !== "") {
+      writer.uint32(18).string(message.priKey);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGenRsaCryptKeyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGenRsaCryptKeyResponse,
+    } as QueryGenRsaCryptKeyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pubKey = reader.string();
+          break;
+        case 2:
+          message.priKey = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGenRsaCryptKeyResponse {
+    const message = {
+      ...baseQueryGenRsaCryptKeyResponse,
+    } as QueryGenRsaCryptKeyResponse;
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = String(object.pubKey);
+    } else {
+      message.pubKey = "";
+    }
+    if (object.priKey !== undefined && object.priKey !== null) {
+      message.priKey = String(object.priKey);
+    } else {
+      message.priKey = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGenRsaCryptKeyResponse): unknown {
+    const obj: any = {};
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    message.priKey !== undefined && (obj.priKey = message.priKey);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGenRsaCryptKeyResponse>
+  ): QueryGenRsaCryptKeyResponse {
+    const message = {
+      ...baseQueryGenRsaCryptKeyResponse,
+    } as QueryGenRsaCryptKeyResponse;
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = object.pubKey;
+    } else {
+      message.pubKey = "";
+    }
+    if (object.priKey !== undefined && object.priKey !== null) {
+      message.priKey = object.priKey;
+    } else {
+      message.priKey = "";
+    }
+    return message;
+  },
+};
+
 const baseQueryGetStoredConversationRequest: object = { hashParticipant: "" };
 
 export const QueryGetStoredConversationRequest = {
@@ -964,6 +1266,12 @@ export interface Query {
   StoredConversationAll(
     request: QueryAllStoredConversationRequest
   ): Promise<QueryAllStoredConversationResponse>;
+  StoredConversationEncryptKey(
+    request: QueryGetStoredConversationEncryptKeyRequest
+  ): Promise<QueryGetStoredConversationEncryptKeyResponse>;
+  GenRsaCryptKey(
+    request: QueryGenRsaCryptKeyRequest
+  ): Promise<QueryGenRsaCryptKeyResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1048,6 +1356,36 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllStoredConversationResponse.decode(new Reader(data))
+    );
+  }
+
+  StoredConversationEncryptKey(
+    request: QueryGetStoredConversationEncryptKeyRequest
+  ): Promise<QueryGetStoredConversationEncryptKeyResponse> {
+    const data = QueryGetStoredConversationEncryptKeyRequest.encode(
+      request
+    ).finish();
+    const promise = this.rpc.request(
+      "chengyu97.schat.schat.Query",
+      "StoredConversationEncryptKey",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetStoredConversationEncryptKeyResponse.decode(new Reader(data))
+    );
+  }
+
+  GenRsaCryptKey(
+    request: QueryGenRsaCryptKeyRequest
+  ): Promise<QueryGenRsaCryptKeyResponse> {
+    const data = QueryGenRsaCryptKeyRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "chengyu97.schat.schat.Query",
+      "GenRsaCryptKey",
+      data
+    );
+    return promise.then((data) =>
+      QueryGenRsaCryptKeyResponse.decode(new Reader(data))
     );
   }
 }

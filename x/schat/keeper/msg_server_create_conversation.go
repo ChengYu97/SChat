@@ -7,6 +7,7 @@ import (
 
 	"github.com/ChengYu97/SChat/x/schat/types"
 	"github.com/ChengYu97/SChat/x/schat/util/conv"
+	"github.com/ChengYu97/SChat/x/schat/util/logger"
 	rsa2048 "github.com/ChengYu97/SChat/x/schat/util/pubkey_encrypt/rsa_2048"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -21,7 +22,7 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 	}
 
 	// cacl hash participant
-	participants := map[string]string{}
+	participants := make(map[string]string)
 	participants[msg.Creator] = creatorKey.Key
 	hasher := sha256.New()
 	_, err := hasher.Write(conv.UnsafeStrToBytes(msg.Creator))
@@ -44,7 +45,9 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 	// check if conversation exist
 	_, found = k.Keeper.GetStoredConversation(ctx, hashParticipant)
 	if found {
-		return nil, sdkerrors.Wrapf(types.ErrConversationExist, "%s", hashParticipant)
+		return &types.MsgCreateConversationResponse{
+			HashParticipant: hashParticipant,
+		}, nil
 	}
 
 	// generate rsa key
@@ -56,20 +59,25 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 	conversation := &types.StoredConversation{
 		HashParticipant: hashParticipant,
 		EncryptKey:      conv.UnsafeBytesToStr(pubKey.Marshal()),
+		Participant:     make(map[string]bool),
+		DecryptKey:      make(map[string]string),
 	}
 	for address, key := range participants {
 		conversation.Participant[address] = false
 		if key == "" {
+			logger.Log("failed to find key")
 			continue
 		}
 		partiPubkey := &rsa2048.RSA2048PubKey{}
 		err := partiPubkey.Unmarshal(conv.UnsafeStrToBytes(key))
 		if err != nil {
+			logger.Log("failed to unmarshal" + err.Error())
 			continue
 		}
 
-		cipherPriKey, err := partiPubkey.Encrypt(priKey.Marshal())
+		cipherPriKey, err := partiPubkey.EncryptLongMessage(priKey.Marshal())
 		if err != nil {
+			logger.Log("failed to encrypt " + err.Error())
 			continue
 		}
 		conversation.Participant[address] = true
@@ -77,5 +85,7 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 	}
 	k.Keeper.SetStoredConversation(ctx, *conversation)
 
-	return &types.MsgCreateConversationResponse{}, nil
+	return &types.MsgCreateConversationResponse{
+		HashParticipant: hashParticipant,
+	}, nil
 }

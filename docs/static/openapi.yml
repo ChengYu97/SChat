@@ -169,6 +169,39 @@ paths:
           type: string
       tags:
         - Query
+  /ChengYu97/SChat/schat/gen_rsa_crypt_key:
+    get:
+      operationId: Chengyu97SchatSchatGenRsaCryptKey
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              pubKey:
+                type: string
+              priKey:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /ChengYu97/SChat/schat/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -369,6 +402,42 @@ paths:
                     type: object
                     additionalProperties:
                       type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: hashParticipant
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  '/ChengYu97/SChat/schat/stored_conversation_encrypt_key/{hashParticipant}':
+    get:
+      operationId: Chengyu97SchatSchatStoredConversationEncryptKey
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              encryptKey:
+                type: string
         default:
           description: An unexpected error response.
           schema:
@@ -31048,6 +31117,13 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  chengyu97.schat.schat.QueryGenRsaCryptKeyResponse:
+    type: object
+    properties:
+      pubKey:
+        type: string
+      priKey:
+        type: string
   chengyu97.schat.schat.QueryGetEncryptKeyResponse:
     type: object
     properties:
@@ -31058,6 +31134,11 @@ definitions:
             type: string
           key:
             type: string
+  chengyu97.schat.schat.QueryGetStoredConversationEncryptKeyResponse:
+    type: object
+    properties:
+      encryptKey:
+        type: string
   chengyu97.schat.schat.QueryGetStoredConversationResponse:
     type: object
     properties:

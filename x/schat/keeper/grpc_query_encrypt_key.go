@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/ChengYu97/SChat/x/schat/types"
+	"github.com/ChengYu97/SChat/x/schat/util/conv"
+	rsa2048 "github.com/ChengYu97/SChat/x/schat/util/pubkey_encrypt/rsa_2048"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -54,4 +56,20 @@ func (k Keeper) EncryptKey(c context.Context, req *types.QueryGetEncryptKeyReque
 	}
 
 	return &types.QueryGetEncryptKeyResponse{EncryptKey: val}, nil
+}
+
+func (k Keeper) GenRsaCryptKey(c context.Context, req *types.QueryGenRsaCryptKeyRequest) (*types.QueryGenRsaCryptKeyResponse, error) {
+	priKey, err := rsa2048.GenPriKey()
+	if err != nil {
+		return nil, err
+	}
+	pubKey := priKey.PubKey()
+
+	priKeyString := conv.UnsafeBytesToStr(priKey.Marshal())
+	pubKeyString := conv.UnsafeBytesToStr(pubKey.Marshal())
+
+	return &types.QueryGenRsaCryptKeyResponse{
+		PubKey: pubKeyString,
+		PriKey: priKeyString,
+	}, nil
 }
