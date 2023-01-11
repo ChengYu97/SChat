@@ -10,6 +10,7 @@ service Msg {
       rpc AuthEncrptyKey(MsgAuthEncrptyKey) returns (MsgAuthEncrptyKeyResponse);
   rpc CreateConversation(MsgCreateConversation) returns (MsgCreateConversationResponse);
   rpc SendMessage(MsgSendMessage) returns (MsgSendMessageResponse);
+  rpc GetConversationKey(MsgGetConversationKey) returns (MsgGetConversationKeyResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -39,6 +40,16 @@ message MsgSendMessage {
 }
 
 message MsgSendMessageResponse {
+}
+
+message MsgGetConversationKey {
+  string creator = 1;
+  repeated uint64 hashParticipant = 2;
+}
+
+message MsgGetConversationKeyResponse {
+  string encryptKey = 1;
+  string decrypt = 2;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

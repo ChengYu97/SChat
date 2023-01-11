@@ -31,6 +31,16 @@ export interface MsgSendMessage {
 
 export interface MsgSendMessageResponse {}
 
+export interface MsgGetConversationKey {
+  creator: string;
+  hashParticipant: number[];
+}
+
+export interface MsgGetConversationKeyResponse {
+  encryptKey: string;
+  decrypt: string;
+}
+
 const baseMsgAuthEncrptyKey: object = { creator: "", key: "" };
 
 export const MsgAuthEncrptyKey = {
@@ -517,6 +527,196 @@ export const MsgSendMessageResponse = {
   },
 };
 
+const baseMsgGetConversationKey: object = { creator: "", hashParticipant: 0 };
+
+export const MsgGetConversationKey = {
+  encode(
+    message: MsgGetConversationKey,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.hashParticipant) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgGetConversationKey {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgGetConversationKey } as MsgGetConversationKey;
+    message.hashParticipant = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.hashParticipant.push(
+                longToNumber(reader.uint64() as Long)
+              );
+            }
+          } else {
+            message.hashParticipant.push(longToNumber(reader.uint64() as Long));
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgGetConversationKey {
+    const message = { ...baseMsgGetConversationKey } as MsgGetConversationKey;
+    message.hashParticipant = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(Number(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: MsgGetConversationKey): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    if (message.hashParticipant) {
+      obj.hashParticipant = message.hashParticipant.map((e) => e);
+    } else {
+      obj.hashParticipant = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgGetConversationKey>
+  ): MsgGetConversationKey {
+    const message = { ...baseMsgGetConversationKey } as MsgGetConversationKey;
+    message.hashParticipant = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (
+      object.hashParticipant !== undefined &&
+      object.hashParticipant !== null
+    ) {
+      for (const e of object.hashParticipant) {
+        message.hashParticipant.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseMsgGetConversationKeyResponse: object = {
+  encryptKey: "",
+  decrypt: "",
+};
+
+export const MsgGetConversationKeyResponse = {
+  encode(
+    message: MsgGetConversationKeyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.encryptKey !== "") {
+      writer.uint32(10).string(message.encryptKey);
+    }
+    if (message.decrypt !== "") {
+      writer.uint32(18).string(message.decrypt);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgGetConversationKeyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgGetConversationKeyResponse,
+    } as MsgGetConversationKeyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.encryptKey = reader.string();
+          break;
+        case 2:
+          message.decrypt = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgGetConversationKeyResponse {
+    const message = {
+      ...baseMsgGetConversationKeyResponse,
+    } as MsgGetConversationKeyResponse;
+    if (object.encryptKey !== undefined && object.encryptKey !== null) {
+      message.encryptKey = String(object.encryptKey);
+    } else {
+      message.encryptKey = "";
+    }
+    if (object.decrypt !== undefined && object.decrypt !== null) {
+      message.decrypt = String(object.decrypt);
+    } else {
+      message.decrypt = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgGetConversationKeyResponse): unknown {
+    const obj: any = {};
+    message.encryptKey !== undefined && (obj.encryptKey = message.encryptKey);
+    message.decrypt !== undefined && (obj.decrypt = message.decrypt);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgGetConversationKeyResponse>
+  ): MsgGetConversationKeyResponse {
+    const message = {
+      ...baseMsgGetConversationKeyResponse,
+    } as MsgGetConversationKeyResponse;
+    if (object.encryptKey !== undefined && object.encryptKey !== null) {
+      message.encryptKey = object.encryptKey;
+    } else {
+      message.encryptKey = "";
+    }
+    if (object.decrypt !== undefined && object.decrypt !== null) {
+      message.decrypt = object.decrypt;
+    } else {
+      message.decrypt = "";
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   AuthEncrptyKey(
@@ -525,8 +725,11 @@ export interface Msg {
   CreateConversation(
     request: MsgCreateConversation
   ): Promise<MsgCreateConversationResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   SendMessage(request: MsgSendMessage): Promise<MsgSendMessageResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  GetConversationKey(
+    request: MsgGetConversationKey
+  ): Promise<MsgGetConversationKeyResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -571,6 +774,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgSendMessageResponse.decode(new Reader(data))
+    );
+  }
+
+  GetConversationKey(
+    request: MsgGetConversationKey
+  ): Promise<MsgGetConversationKeyResponse> {
+    const data = MsgGetConversationKey.encode(request).finish();
+    const promise = this.rpc.request(
+      "chengyu97.schat.schat.Msg",
+      "GetConversationKey",
+      data
+    );
+    return promise.then((data) =>
+      MsgGetConversationKeyResponse.decode(new Reader(data))
     );
   }
 }

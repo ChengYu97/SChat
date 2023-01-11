@@ -36,6 +36,11 @@ export interface SchatMsgCreateConversationResponse {
   hashParticipant?: number[];
 }
 
+export interface SchatMsgGetConversationKeyResponse {
+  encryptKey?: string;
+  decrypt?: string;
+}
+
 export type SchatMsgSendMessageResponse = object;
 
 /**
