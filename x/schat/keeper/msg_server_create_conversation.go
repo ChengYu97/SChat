@@ -57,11 +57,9 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 	conversation := &types.StoredConversation{
 		HashParticipant: hashParticipant,
 		EncryptKey:      conv.UnsafeBytesToStr(pubKey.Marshal()),
-		Participant:     make(map[string]bool),
 		DecryptKey:      make(map[string]string),
 	}
 	for address, key := range participants {
-		conversation.Participant[address] = false
 		if key == "" {
 			continue
 		}
@@ -75,7 +73,6 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 		if err != nil {
 			continue
 		}
-		conversation.Participant[address] = true
 		conversation.DecryptKey[address] = conv.UnsafeBytesToStr(cipherPriKey)
 	}
 	k.Keeper.SetStoredConversation(ctx, *conversation)
