@@ -352,21 +352,6 @@ export default {
 		},
 		
 		
-		async sendMsgAuthEncrptyKey({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgAuthEncrptyKey(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgAuthEncrptyKey:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgAuthEncrptyKey:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgCreateConversation({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -379,6 +364,21 @@ export default {
 					throw new Error('TxClient:MsgCreateConversation:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgCreateConversation:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgAuthEncrptyKey({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgAuthEncrptyKey(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgAuthEncrptyKey:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgAuthEncrptyKey:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -398,19 +398,6 @@ export default {
 			}
 		},
 		
-		async MsgAuthEncrptyKey({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgAuthEncrptyKey(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgAuthEncrptyKey:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgAuthEncrptyKey:Create Could not create message: ' + e.message)
-				}
-			}
-		},
 		async MsgCreateConversation({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -421,6 +408,19 @@ export default {
 					throw new Error('TxClient:MsgCreateConversation:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgCreateConversation:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgAuthEncrptyKey({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgAuthEncrptyKey(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgAuthEncrptyKey:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgAuthEncrptyKey:Create Could not create message: ' + e.message)
 				}
 			}
 		},

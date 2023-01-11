@@ -4,14 +4,14 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgAuthEncrptyKey } from "./types/schat/tx";
 import { MsgCreateConversation } from "./types/schat/tx";
+import { MsgAuthEncrptyKey } from "./types/schat/tx";
 import { MsgSendMessage } from "./types/schat/tx";
 
 
 const types = [
-  ["/chengyu97.schat.schat.MsgAuthEncrptyKey", MsgAuthEncrptyKey],
   ["/chengyu97.schat.schat.MsgCreateConversation", MsgCreateConversation],
+  ["/chengyu97.schat.schat.MsgAuthEncrptyKey", MsgAuthEncrptyKey],
   ["/chengyu97.schat.schat.MsgSendMessage", MsgSendMessage],
   
 ];
@@ -45,8 +45,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgAuthEncrptyKey: (data: MsgAuthEncrptyKey): EncodeObject => ({ typeUrl: "/chengyu97.schat.schat.MsgAuthEncrptyKey", value: MsgAuthEncrptyKey.fromPartial( data ) }),
     msgCreateConversation: (data: MsgCreateConversation): EncodeObject => ({ typeUrl: "/chengyu97.schat.schat.MsgCreateConversation", value: MsgCreateConversation.fromPartial( data ) }),
+    msgAuthEncrptyKey: (data: MsgAuthEncrptyKey): EncodeObject => ({ typeUrl: "/chengyu97.schat.schat.MsgAuthEncrptyKey", value: MsgAuthEncrptyKey.fromPartial( data ) }),
     msgSendMessage: (data: MsgSendMessage): EncodeObject => ({ typeUrl: "/chengyu97.schat.schat.MsgSendMessage", value: MsgSendMessage.fromPartial( data ) }),
     
   };

@@ -7,7 +7,6 @@ import (
 
 	"github.com/ChengYu97/SChat/x/schat/types"
 	"github.com/ChengYu97/SChat/x/schat/util/conv"
-	"github.com/ChengYu97/SChat/x/schat/util/logger"
 	rsa2048 "github.com/ChengYu97/SChat/x/schat/util/pubkey_encrypt/rsa_2048"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -18,7 +17,7 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 
 	creatorKey, found := k.Keeper.GetEncryptKey(ctx, msg.Creator)
 	if !found {
-		return nil, sdkerrors.Wrapf(types.ErrConversationCreatorNotCertified, "%s", msg.Creator)
+		return nil, sdkerrors.Wrapf(types.ErrConversationParticipantNotCertified, "%s", msg.Creator)
 	}
 
 	// cacl hash participant
@@ -34,11 +33,10 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 
 		// get participant's encrypt key
 		encryptKey, found := k.Keeper.GetEncryptKey(ctx, participant)
-		if found {
-			participants[participant] = encryptKey.Key
-		} else {
-			participants[participant] = ""
+		if !found {
+			return nil, sdkerrors.Wrapf(types.ErrConversationParticipantNotCertified, "%s", msg.Creator)
 		}
+		participants[participant] = encryptKey.Key
 	}
 	hashParticipant := conv.ArrayByte2Uint(hasher.Sum(nil))
 
@@ -65,19 +63,16 @@ func (k msgServer) CreateConversation(goCtx context.Context, msg *types.MsgCreat
 	for address, key := range participants {
 		conversation.Participant[address] = false
 		if key == "" {
-			logger.Log("failed to find key")
 			continue
 		}
 		partiPubkey := &rsa2048.RSA2048PubKey{}
 		err := partiPubkey.Unmarshal(conv.UnsafeStrToBytes(key))
 		if err != nil {
-			logger.Log("failed to unmarshal" + err.Error())
 			continue
 		}
 
 		cipherPriKey, err := partiPubkey.EncryptLongMessage(priKey.Marshal())
 		if err != nil {
-			logger.Log("failed to encrypt " + err.Error())
 			continue
 		}
 		conversation.Participant[address] = true
