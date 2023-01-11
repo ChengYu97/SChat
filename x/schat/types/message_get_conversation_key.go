@@ -9,7 +9,7 @@ const TypeMsgGetConversationKey = "get_conversation_key"
 
 var _ sdk.Msg = &MsgGetConversationKey{}
 
-func NewMsgGetConversationKey(creator string, hashParticipant []uint64) *MsgGetConversationKey {
+func NewMsgGetConversationKey(creator string, hashParticipant []uint32) *MsgGetConversationKey {
 	return &MsgGetConversationKey{
 		Creator:         creator,
 		HashParticipant: hashParticipant,

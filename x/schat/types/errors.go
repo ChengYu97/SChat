@@ -17,7 +17,7 @@ var (
 
 	// msg
 	// create conversation
-	ErrConversationExist                   = sdkerrors.Register(ModuleName, 1211, "Current address has been certified")
+	ErrConversationNotExist                = sdkerrors.Register(ModuleName, 1211, "Conversation not exists")
 	ErrConversationParticipantNotCertified = sdkerrors.Register(ModuleName, 1212, "The key of the conversation creator must be certified")
 
 	ErrConversationNotFound = sdkerrors.Register(ModuleName, 1221, "Conversation can't be found by current hashParticipant")

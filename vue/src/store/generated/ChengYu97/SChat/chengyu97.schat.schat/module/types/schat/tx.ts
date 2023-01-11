@@ -539,7 +539,7 @@ export const MsgGetConversationKey = {
     }
     writer.uint32(18).fork();
     for (const v of message.hashParticipant) {
-      writer.uint64(v);
+      writer.uint32(v);
     }
     writer.ldelim();
     return writer;
@@ -560,12 +560,10 @@ export const MsgGetConversationKey = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.hashParticipant.push(
-                longToNumber(reader.uint64() as Long)
-              );
+              message.hashParticipant.push(reader.uint32());
             }
           } else {
-            message.hashParticipant.push(longToNumber(reader.uint64() as Long));
+            message.hashParticipant.push(reader.uint32());
           }
           break;
         default:

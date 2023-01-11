@@ -111,7 +111,6 @@ export interface SchatStoredConversation {
   hashParticipant?: number[];
   encryptKey?: string;
   message?: string[];
-  participant?: Record<string, boolean>;
   decryptKey?: Record<string, string>;
 }
 

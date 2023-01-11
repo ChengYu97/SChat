@@ -3,13 +3,14 @@ package cli
 import (
 	"strconv"
 
+	"strings"
+
 	"github.com/ChengYu97/SChat/x/schat/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
-	"strings"
 )
 
 var _ = strconv.Itoa(0)
@@ -21,9 +22,9 @@ func CmdGetConversationKey() *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCastHashParticipant := strings.Split(args[0], listSeparator)
-			argHashParticipant := make([]uint64, len(argCastHashParticipant))
+			argHashParticipant := make([]uint32, len(argCastHashParticipant))
 			for i, arg := range argCastHashParticipant {
-				value, err := cast.ToUint64E(arg)
+				value, err := cast.ToUint32E(arg)
 				if err != nil {
 					return err
 				}

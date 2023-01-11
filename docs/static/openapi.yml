@@ -264,10 +264,6 @@ paths:
                       type: array
                       items:
                         type: string
-                    participant:
-                      type: object
-                      additionalProperties:
-                        type: boolean
                     decryptKey:
                       type: object
                       additionalProperties:
@@ -400,10 +396,6 @@ paths:
                     type: array
                     items:
                       type: string
-                  participant:
-                    type: object
-                    additionalProperties:
-                      type: boolean
                   decryptKey:
                     type: object
                     additionalProperties:
@@ -31045,6 +31037,13 @@ definitions:
         items:
           type: integer
           format: int64
+  chengyu97.schat.schat.MsgGetConversationKeyResponse:
+    type: object
+    properties:
+      encryptKey:
+        type: string
+      decrypt:
+        type: string
   chengyu97.schat.schat.MsgSendMessageResponse:
     type: object
   chengyu97.schat.schat.Params:
@@ -31106,10 +31105,6 @@ definitions:
               type: array
               items:
                 type: string
-            participant:
-              type: object
-              additionalProperties:
-                type: boolean
             decryptKey:
               type: object
               additionalProperties:
@@ -31178,10 +31173,6 @@ definitions:
             type: array
             items:
               type: string
-          participant:
-            type: object
-            additionalProperties:
-              type: boolean
           decryptKey:
             type: object
             additionalProperties:
@@ -31216,10 +31207,6 @@ definitions:
         type: array
         items:
           type: string
-      participant:
-        type: object
-        additionalProperties:
-          type: boolean
       decryptKey:
         type: object
         additionalProperties:

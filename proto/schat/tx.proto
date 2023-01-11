@@ -44,7 +44,7 @@ message MsgSendMessageResponse {
 
 message MsgGetConversationKey {
   string creator = 1;
-  repeated uint64 hashParticipant = 2;
+  repeated uint32 hashParticipant = 2;
 }
 
 message MsgGetConversationKeyResponse {

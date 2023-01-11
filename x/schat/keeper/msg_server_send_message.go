@@ -15,7 +15,7 @@ func (k msgServer) SendMessage(goCtx context.Context, msg *types.MsgSendMessage)
 	if !found {
 		return nil, sdkerrors.Wrapf(types.ErrConversationNotFound, "%s", msg.HashParticipant)
 	}
-	if _, found := conversation.Participant[msg.Creator]; !found {
+	if _, ok := conversation.DecryptKey[msg.Creator]; !ok {
 		return nil, sdkerrors.Wrapf(types.ErrNoConversationAccess, "%s", msg.Creator)
 	}
 
